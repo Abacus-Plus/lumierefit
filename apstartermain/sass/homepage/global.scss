@@ -271,14 +271,12 @@ img.main-wrapper__logo {
     }
 }
 
-// General Styles
 .post-type-archive {
     .black {
         background-color: black !important;
     }
 }
 
-// Accordion Styles
 button.accordion-button {
     padding: 10px 0px 10px 0px;
     background-color: transparent;
@@ -490,15 +488,18 @@ button.accordion-button {
         }
     }
 
-    .archive,
-    .home {
+    .archive .new-products__wrapper {
+        flex: 1;
+    }
+
+    .page-template-homepage {
         .new-products__wrapper {
             grid-template-columns: repeat(12, 1fr);
             column-gap: 16px;
         }
     }
 
-    .home .new-products__product {
+    .page-template-homepage .new-products__product {
         margin-right: auto;
         min-width: 490px;
         max-width: 490px;
