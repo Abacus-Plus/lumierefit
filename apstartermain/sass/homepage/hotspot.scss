@@ -1,0 +1,378 @@
+.konfigurator-section {
+    height: 90vh;
+
+    &__wrapper {
+        @media (max-width: 768px) {
+            display: none;
+        }
+
+        position: relative;
+
+        img {
+            position: relative;
+            z-index: 1;
+            border-radius: 4px;
+            width: 100%;
+            height: 90vh;
+            object-fit: cover;
+        }
+
+        .content-wrapper {
+            position: absolute;
+            top: 64px;
+            z-index: 2;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            span {
+                color: #E1872D;
+                font-size: 1.25rem;
+                font-family: 'Staatliches', sans-serif;
+                font-weight: 400;
+                letter-spacing: 6px;
+            }
+
+            h2 {
+                color: white;
+                font-family: 'Staatliches', sans-serif;
+                font-weight: 400;
+                font-size: 3rem;
+                margin: 0;
+
+                span {
+                    color: #E1872D;
+                    text-decoration: underline;
+                    font-size: 3rem;
+                    letter-spacing: 0;
+                }
+            }
+        }
+
+        .hotspot-content-custom {
+            position: absolute;
+            z-index: 2;
+            top: 0;
+            width: 100%;
+            height: 100%;
+
+            .single-hotspot {
+                display: flex;
+                align-items: center;
+                gap: 16px;
+                width: fit-content;
+                position: absolute;
+                flex-direction: column;
+
+                .number {
+                    background: transparent;
+                    padding: 10px;
+                    line-height: 0;
+                    height: 30px;
+                    width: 30px;
+                    border-radius: 50%;
+                    border: 1px solid white;
+                    color: white;
+                    font-family: var(--secondary-font);
+                    font-weight: 300;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    cursor: pointer;
+                    position: relative;
+                    z-index: 2;
+                    font-size: 25px;
+                    transition: all .3s ease-in-out;
+
+                    &:hover {
+                        background-color: white;
+                        color: black;
+                        border: 1px solid black;
+                    }
+                }
+
+                .content {
+                    background: rgba(255, 255, 255, 0.5);
+                    backdrop-filter: blur(15px);
+                    -webkit-backdrop-filter: blur(15px);
+                    border-radius: 4px;
+                    min-width: 300px;
+                    padding: 16px;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 8px;
+                    position: relative;
+                    z-index: 3;
+                    opacity: 0;
+                    visibility: hidden;
+                    transition: opacity .3s ease-in-out;
+
+                    .title-and-close {
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+
+
+                        .hotspot-title {
+                            font-family: var(--secondary-font);
+                            font-size: .875rem;
+                            font-weight: 700;
+                            color: var(--grey-color-900);
+                        }
+
+                        .close-icon {
+                            line-height: 0;
+
+                            .x-icon {
+                                all: unset;
+                                width: 14px;
+                                height: auto;
+                                cursor: pointer;
+
+                                /*&:hover {
+                                    filter: invert(68%) sepia(55%) saturate(2038%) hue-rotate(339deg) brightness(92%) contrast(92%);
+                                }*/
+                            }
+                        }
+                    }
+
+                    .hotspot-subtitle {
+                        font-family: var(--secondary-font);;
+                        font-size: 0.75rem;
+                        font-weight: 700;
+                        margin: 0;
+                        color: var(--grey-color-600);
+                        margin-bottom: 8px;
+                    }
+
+                    .other-options-wrapper {
+                        display: flex;
+                        gap: 8px;
+
+                        a {
+                            width: -webkit-fill-available;
+
+                            .hotspot-other-options {
+                                background-color: white;
+                                color: var(--grey-color-900);
+                                font-family: var(--primary-font);
+                                font-weight: 400;
+                                border-radius: 4px;
+                                padding: 6px 12px;
+                                font-size: 0.875rem;
+                                min-width: 45px;
+                                text-align: center;
+                                display: block;
+                                transition: var(--transition);
+    
+                                &:hover {
+                                    background-color: var(--primary-color-500);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            .single-hotspot.open {
+
+                .number {
+                    background-color: white;
+                    color: black;
+                    border: 1px solid black;
+                }
+            }
+        }
+    }
+
+    &__wrapper-mobile {
+
+        display: none;
+
+        @media (max-width: 768px) {
+            display: block;
+        }
+
+        position: relative;
+
+        img {
+            position: relative;
+            z-index: 1;
+            border-radius: 4px;
+            width: 100%;
+            height: 90vh;
+            object-fit: cover;
+        }
+
+        .content-wrapper {
+            position: absolute;
+            top: 64px;
+            z-index: 2;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            span {
+                color: #E1872D;
+                font-size: 1.25rem;
+                font-family: 'Staatliches', sans-serif;
+                font-weight: 400;
+                letter-spacing: 6px;
+            }
+
+            h2 {
+                color: white;
+                font-family: 'Staatliches', sans-serif;
+                font-weight: 400;
+                font-size: 3rem;
+                margin: 0;
+
+                span {
+                    color: #E1872D;
+                    text-decoration: underline;
+                    font-size: 3rem;
+                    letter-spacing: 0;
+                }
+            }
+        }
+
+        .hotspot-content-custom {
+            position: absolute;
+            z-index: 2;
+            top: 0;
+            width: 100%;
+            height: 100%;
+
+            .single-hotspot {
+                display: flex;
+                align-items: center;
+                gap: 16px;
+                width: fit-content;
+                position: absolute;
+                flex-direction: column;
+
+                .number {
+                    background: transparent;
+                    padding: 10px;
+                    line-height: 0;
+                    height: 30px;
+                    width: 30px;
+                    border-radius: 50%;
+                    border: 1px solid white;
+                    color: white;
+                    font-family: var(--secondary-font);
+                    font-weight: 300;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    cursor: pointer;
+                    position: relative;
+                    z-index: 2;
+                    font-size: 25px;
+                    transition: all .3s ease-in-out;
+
+                    &:hover {
+                        background-color: white;
+                        color: black;
+                        border: 1px solid black;
+                    }
+                }
+
+                .content {
+                    background: rgba(255, 255, 255, 0.5);
+                    backdrop-filter: blur(15px);
+                    -webkit-backdrop-filter: blur(15px);
+                    min-width: auto;
+                    border-radius: 4px;
+                    width: auto;
+                    padding: 16px;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 8px;
+                    position: relative;
+                    z-index: 3;
+                    opacity: 0;
+                    visibility: hidden;
+                    transition: opacity .3s ease-in-out;
+
+                    .title-and-close {
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+
+
+                        .hotspot-title {
+                            font-family: var(--secondary-font);
+                            font-size: .875rem;
+                            font-weight: 700;
+                            color: var(--grey-color-900);
+                        }
+
+                        .close-icon {
+                            line-height: 0;
+
+                            .x-icon {
+                                all: unset;
+                                width: 14px;
+                                height: auto;
+                                cursor: pointer;
+
+                                /*&:hover {
+                                    filter: invert(68%) sepia(55%) saturate(2038%) hue-rotate(339deg) brightness(92%) contrast(92%);
+                                }*/
+                            }
+                        }
+                    }
+
+                    .hotspot-subtitle {
+                        font-family: var(--secondary-font);
+                        font-size: 0.75rem;
+                        font-weight: 700;
+                        margin: 0;
+                        color: var(--grey-color-600);
+                        margin-bottom: 8px;
+                    }
+
+                    .other-options-wrapper {
+                        display: flex;
+                        gap: 8px;
+
+                        a {
+                            width: -webkit-fill-available;
+
+                            .hotspot-other-options {
+                                background-color: white;
+                                color: var(--grey-color-900);
+                                font-family: var(--primary-font);
+                                font-weight: 400;
+                                border-radius: 4px;
+                                padding: 6px 12px;
+                                font-size: 0.875rem;
+                                min-width: 45px;
+                                text-align: center;
+                                display: block;
+                                transition: var(--transition);
+    
+                                &:hover {
+                                    background-color: var(--primary-color-500);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            .single-hotspot.open {
+
+                .number {
+                    background-color: white;
+                    color: black;
+                    border: 1px solid black;
+                }
+            }
+        }
+    }
+
+}

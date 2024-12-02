@@ -1,0 +1,67 @@
+.newsletter {
+    background-color: #F8F9FA;
+    padding: 80px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &__center {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+        align-content: center;
+        flex-wrap: wrap;
+        align-items: center;
+
+        h3 {
+            text-transform: uppercase;
+        }
+
+        #wpcf7-f180-o1 {
+            @media only screen and (max-width: 599px) {
+                width: 100%;
+            }
+        }
+
+        .wpcf7-form-control-wrap {
+            @media only screen and (max-width: 599px) {
+                width: 100%;
+            }
+        }
+
+        form.wpcf7-form.init {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+
+            @media only screen and (max-width: 599px) {
+                flex-direction: column;
+            }
+        }
+
+        form.wpcf7-form.init p {
+            display: flex;
+
+            @media only screen and (max-width: 599px) {
+                min-width: 100%;
+            }
+        }
+
+        form.wpcf7-form.init .secondary-button {
+            @media only screen and (max-width: 599px) {
+                width: 100%;
+            }
+        }
+
+        .wpcf7-spinner {
+            @media only screen and (max-width: 599px) {
+                display: none;
+            }
+        }
+    }
+}
+
+.page-id-113 ins.wc-block-components-product-price__value.is-discounted.wc-block-components-order-summary-item__individual-price {
+    color: var(--primary-color-500);
+    background: transparent;
+}

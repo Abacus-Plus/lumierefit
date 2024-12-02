@@ -1,0 +1,165 @@
+.projects {
+	padding: 150px 0px;
+	display: flex;
+	justify-content: center;
+
+    &__main-wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 110px;
+        align-items: center;
+        width: 70%;
+
+        h2 {
+            letter-spacing: -4px;
+        }
+
+        .projects__inner {
+            display: flex;
+            flex-direction: column;
+            gap: 110px;
+
+            .projects__inner-wrapper {
+                display: flex;
+                gap: 48px;
+                width: 100%;
+
+                #col-left {
+                    translate: none; 
+                    rotate: none; 
+                    scale: none; 
+                    transform: translate(0px, -100px);
+                }
+
+                #col-right {
+                    translate: none; 
+                    rotate: none; 
+                    scale: none; 
+                    transform: translate(0px, -200px);
+                }
+
+                .projects-wrapper__card {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 16px;
+
+                    .img-content {
+                        height: 600px;
+                        overflow: hidden;
+                        border-radius: 6px;
+                        position: relative;
+
+                        img {
+                            width: 100%;
+                            object-fit: cover;
+                            transition: transform .5s ease-in-out;
+                            height: 600px;
+                            transition: opacity .5s ease-in-out;
+                        }
+
+                        .hover {
+                            position: absolute;
+                            top: 0;
+                            right: 0;
+                            left: 0;
+                            bottom: 0;
+                            opacity: 0;
+                        }
+                    }
+
+                    &:hover {
+
+                        .img-content {
+
+                            .hover {
+                                opacity: 1;
+                            }
+                        }
+                    }
+
+                    h3 {
+                        margin-top: 16px;
+
+                        a {
+
+                            &:hover {
+                                color: #EF4136;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .odd {
+
+                .projects-wrapper__card {
+                    
+                    &:first-child {
+                        width: 40%;
+                    }
+
+                    &:last-child {
+                        width: 60%;
+                    }
+                }
+            }
+
+            .even {
+
+                .projects-wrapper__card {
+
+                    &:first-child {
+                        width: 60%;
+                    }
+
+                    &:last-child {
+                        width: 40%;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (min-width: 993px) and (max-width: 1920px) {
+	.projects__main-wrapper {
+		width: 86%;
+	}
+}
+
+@media only screen and (max-width: 992px) {
+	.projects {
+		padding: 60px 0px;
+	}
+	.projects__main-wrapper {
+		width: 90%;
+		gap: 40px;
+	}
+	.projects__main-wrapper .projects__inner {
+		gap: 48px;
+	}
+	.projects__main-wrapper .projects__inner .odd {
+		flex-direction: column;
+	}
+	.projects__main-wrapper .projects__inner .odd .projects-wrapper__card {
+		width: 100% !important;
+	}
+	.projects__main-wrapper .projects__inner .odd .projects-wrapper__card .img-content {
+		height: 350px;
+	}
+	.projects__main-wrapper .projects__inner .odd .projects-wrapper__card .img-content img {
+		height: 350px;
+	}
+	.projects__main-wrapper .projects__inner .even {
+		flex-direction: column;
+	}
+	.projects__main-wrapper .projects__inner .even .projects-wrapper__card {
+		width: 100% !important;
+	}
+	.projects__main-wrapper .projects__inner .even .projects-wrapper__card .img-content {
+		height: 350px;
+	}
+	.projects__main-wrapper .projects__inner .even .projects-wrapper__card .img-content img {
+		height: 350px;
+	}
+}

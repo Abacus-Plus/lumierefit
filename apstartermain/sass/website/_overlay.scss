@@ -1,0 +1,42 @@
+.has-image-background {
+	position: relative;
+	
+	.background-image {
+		z-index: -2;
+		position: sticky;
+		left: 0;
+		top: 16vh;
+		height: 80vh;
+		margin-top: 16vh;
+	}
+
+	.has-overlay {
+		background: linear-gradient(180deg, rgba(0, 0, 0, 0.5) 70%, rgba(0, 0, 0, 0) 100%);
+		position: sticky;
+		left: 0;
+		top: 0;
+		right: 0;
+		overflow: hidden;
+		margin-top: -96vh;
+	}
+}
+
+@media only screen and (max-width: 992px) {
+	html {
+		font-size: 14px;
+	}
+	.has-image-background .background-image {
+		height: 30vh;
+		margin-top: 6vh;
+	}
+	.has-overlay {
+		margin-top: -36vh;
+		background: rgba(0, 0, 0, 0.5);
+	}
+	#is-desktop {
+		display: none;
+	}
+	#is-mobile {
+		display: block;
+	}
+}

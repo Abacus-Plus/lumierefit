@@ -1,0 +1,27 @@
+.hero-section {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    &__wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        width: 70%;
+        position: relative;
+        z-index: 99; 
+
+        .secondary-button {
+            margin-top: 1rem; 
+        }
+
+        h1 {
+            color: white; 
+        }
+
+        p {
+            width: 50%; 
+        }
+    }
+}

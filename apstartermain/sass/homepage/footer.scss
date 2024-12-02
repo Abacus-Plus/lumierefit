@@ -1,0 +1,108 @@
+.section-footer {
+    padding: 80px 0px 25px 0px;
+
+    .row {
+        row-gap: 24px;
+    }
+
+    &__socials {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+
+        @media only screen and (max-width: 599px) {
+            padding-bottom: 24px;
+        }
+    }
+
+    &__copyright {
+        display: flex;
+        justify-content: space-between;
+        padding-top: 60px;
+        align-items: center;
+
+        @media only screen and (max-width: 599px) {
+            flex-direction: column-reverse;
+            padding: 0 12px;
+            gap: 16px;
+        }
+    }
+
+    &__title {
+        text-transform: uppercase;
+        font-family: var(--primary-font);
+        font-weight: 400;
+        font-size: 1rem;
+        color: var(--grey-color-900);
+        letter-spacing: 1px;
+
+    }
+
+    &__title2 {
+        text-transform: uppercase;
+        font-family: var(--primary-font);
+        font-weight: 400;
+        font-size: 1rem;
+        color: var(--grey-color-900);
+        letter-spacing: 1px;
+        padding-top: 24px;
+
+    }
+
+    &__list {
+        list-style: none;
+        padding: 16px 0px 16px 0px;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+    }
+
+    &__list li {
+        color: var(--grey-color-900);
+        font-weight: 400;
+        font-family: var(--secondary-font);
+        font-size: 0.875rem;
+        text-decoration: none;
+    }
+
+    &__list a {
+        color: var(--grey-color-900);
+        font-weight: 400;
+        font-family: var(--secondary-font);
+        font-size: 0.875rem;
+        text-decoration: none;
+    }
+
+    &__contact {
+        @media only screen and (max-width: 599px) {
+            .section-footer__list {
+                padding: 16px 0 32px 0;
+            }
+        }
+    }
+
+    &__logo {
+
+        p {
+            padding: 24px 0;
+            line-height: 17.6px;
+        }
+    }
+}
+
+.payment-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    display: none;
+
+    img {
+        height: 24px;
+    }
+}
+
+.section-footer .container {
+    max-width: 100%;
+    width: 98%;
+}

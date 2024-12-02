@@ -1,0 +1,127 @@
+.contact-us {
+	padding: 150px 0px;
+	margin-right: 4%;
+	margin-left: auto;
+	width: 60%;
+	display: flex;
+	height: 100vh;
+	align-items: center;
+
+    h2 {
+        letter-spacing: -4px;
+
+        a {
+
+            span {
+                transition: var(--transition);
+            }
+
+            &:hover {
+
+                span {
+                    color: #b5241b!important;
+                }
+            }
+        }
+    }
+}
+
+.section-footer {
+	display: flex;
+	justify-content: center;
+	position: relative;
+	z-index: 999;
+
+    &__wrapper {
+        display: flex;
+        justify-content: space-between;
+        height: 5vh;
+        margin-top: -5vh;
+        align-items: center;
+        width: 98%;
+        padding: 0px 12px;
+
+        p {
+            color: #AD9FAD;
+        }
+
+        .back-to-top {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+
+            p {
+                color: #EF4136;
+                transition: var(--transition);
+            }
+
+            img {
+                height: .875rem;
+            }
+
+            &:hover {
+
+                p {
+                    color: #b5241b;
+                }
+
+                img {
+                    filter: invert(18%) sepia(38%) saturate(5986%) hue-rotate(351deg) brightness(60%) contrast(93%);
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 992px) {
+	.section-footer__wrapper {
+		flex-direction: column-reverse;
+		gap: 1rem;
+		padding-bottom: 1rem;
+		justify-content: normal;
+	}
+	.section-footer__wrapper p {
+		font-size: .875rem;
+	}
+	.section-footer__wrapper .back-to-top p {
+		font-size: 1rem;
+	}
+	.section-footer__wrapper .back-to-top img {
+		height: 1rem;
+	}
+}
+
+@media only screen and (min-width: 993px) and (max-width: 1920px) {
+	.contact-us {
+		width: 60%;
+		margin-right: 7%;
+	}
+}
+
+@media only screen and (min-width: 993px) and (max-width: 1560px) {
+	.contact-us {
+		width: 55%;
+	}
+	.contact-us__wrapper h2 img {
+		height: 3rem;
+	}
+	.contact-us__wrapper h2 .idea {
+		height: 4rem;
+	}
+}
+
+@media only screen and (max-width: 992px) {
+	.contact-us {
+		margin-right: auto;
+		width: 90%;
+	}
+	.contact-us__wrapper h2 img {
+		height: 1.5rem;
+		margin-top: -6px !important;
+	}
+	.contact-us__wrapper h2 .idea {
+		margin-top: -6px !important;
+		height: 2rem;
+	}
+}

@@ -1,0 +1,52 @@
+.hero-section {
+    height: 700px;
+    position: relative;
+
+    .overlay {
+        position: absolute;
+        width: 100%;
+        height: 700px;
+        background-color: rgba(0, 0, 0, 0.4);
+        z-index: 2;
+    }
+
+    &__image,
+    video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: 0;
+        position: relative;
+    }
+
+    &__main-wrapper {
+        position: absolute;
+        display: flex;
+        top: calc(50% - 145px);
+        z-index: 3;
+        width: 35%;
+
+        @media only screen and (min-width: 600px) and (max-width: 2080px) {
+            top: calc(50% - 220px);
+            width: 55%;
+        }
+
+        @media only screen and (max-width: 599px) {
+            width: 92%;
+        }
+
+        .content {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+
+            h1 {
+                text-transform: uppercase;
+
+                @media screen and (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
+                    line-height: 1.5;
+                }
+            }
+        }
+    }
+}

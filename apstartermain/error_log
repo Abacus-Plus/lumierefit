@@ -1,0 +1,20 @@
+[18-Oct-2024 00:29:28 America/Chicago] PHP Fatal error:  Uncaught Error: Call to undefined function get_header() in /home/lumiere/lumierefit.ba/wp-content/themes/apstartermain/index.php:15
+Stack trace:
+#0 {main}
+  thrown in /home/lumiere/lumierefit.ba/wp-content/themes/apstartermain/index.php on line 15
+[23-Oct-2024 22:09:43 America/Chicago] PHP Fatal error:  Uncaught Error: Call to undefined function get_header() in /home/lumiere/lumierefit.ba/wp-content/themes/apstartermain/index.php:15
+Stack trace:
+#0 {main}
+  thrown in /home/lumiere/lumierefit.ba/wp-content/themes/apstartermain/index.php on line 15
+[06-Nov-2024 21:40:33 America/Chicago] PHP Fatal error:  Uncaught Error: Call to undefined function get_header() in /home/lumiere/lumierefit.ba/wp-content/themes/apstartermain/index.php:15
+Stack trace:
+#0 {main}
+  thrown in /home/lumiere/lumierefit.ba/wp-content/themes/apstartermain/index.php on line 15
+[17-Nov-2024 23:05:51 America/Chicago] PHP Fatal error:  Uncaught Error: Call to undefined function get_header() in /home/lumiere/lumierefit.ba/wp-content/themes/apstartermain/index.php:15
+Stack trace:
+#0 {main}
+  thrown in /home/lumiere/lumierefit.ba/wp-content/themes/apstartermain/index.php on line 15
+[17-Nov-2024 23:08:12 America/Chicago] PHP Fatal error:  Uncaught Error: Call to undefined function get_header() in /home/lumiere/lumierefit.ba/wp-content/themes/apstartermain/index.php:15
+Stack trace:
+#0 {main}
+  thrown in /home/lumiere/lumierefit.ba/wp-content/themes/apstartermain/index.php on line 15

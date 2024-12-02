@@ -1,0 +1,53 @@
+.quote-section {
+	height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+    &__wrapper {
+        width: 70%;
+
+        h2 {
+            letter-spacing: -4px;
+        }
+    }
+}
+
+@media only screen and (min-width: 993px) and (max-width: 1920px) {
+	.quote-section__wrapper {
+		width: 80%;
+	}
+}
+
+@media only screen and (min-width: 993px) and (max-width: 1560px) {
+	.quote-section__wrapper h2 img {
+		height: 4rem;
+	}
+	.quote-section__wrapper h2 span {
+		font-size: 4rem !important;
+	}
+}
+
+@media only screen and (max-width: 992px) {
+	.quote-section {
+		height: auto;
+		padding: 60px 0px;
+	}
+	.quote-section__wrapper {
+		width: 90%;
+	}
+	.quote-section__wrapper h2 img {
+		height: 2rem;
+		margin-top: 0px !important;
+	}
+	.quote-section__wrapper h2 img:nth-child(1) {
+		margin-top: -5px !important;
+	}
+	.quote-section__wrapper h2 .quote-arrow {
+		position: relative;
+		margin-top: -5px;
+	}
+	.quote-section__wrapper h2 span {
+		font-size: 2rem !important;
+	}
+}

@@ -1,0 +1,159 @@
+.testimonials {
+	padding: 150px 0px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+
+    &__top {
+        width: 70%;
+        padding-bottom: 48px;
+
+        h3 {
+            display: flex;
+            align-items: center;
+            letter-spacing: -2.4px;
+
+            img {
+                padding-right: 24px;
+            }
+        }
+    }
+
+    &__main-wrapper {
+        width: 70%;
+
+        .testimonials__single {
+            display: flex;
+            flex-direction: column;
+            gap: 48px;
+
+            .is-quote {
+                font-size: 5rem;
+                letter-spacing: -4px;
+                line-height: normal;
+            }
+
+            .person-info {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+
+                &__single {
+                    display: flex;
+                    align-items: center;
+                    gap: 24px;
+
+                    img {
+                        width: 60px;
+                        border-radius: 100%;
+                    }
+
+                    .person-info__name-and-position {
+                        display: flex;
+                        flex-direction: column;
+                        gap: 6px;
+
+                        .name {
+                            color: #AD9FAD;
+                            font-size: 1.125rem;
+                            font-style: normal;
+                            line-height: normal;
+                        }
+
+                        .position {
+                            font-size: 1.125rem;
+                            font-style: normal;
+                            line-height: normal;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .person-info__arrows {
+        display: flex;
+        align-items: center;
+        gap: 40px;
+        width: 70%;
+        justify-content: flex-end;
+        margin-top: -44px;
+        position: relative;
+        z-index: 99;
+    
+        .person-info__arrow-prev {
+            all: unset;
+            cursor: pointer;
+    
+            img {
+                width: 24px;
+            }
+        }
+    
+        .person-info__arrow-next {
+            all: unset;
+            cursor: pointer;
+    
+            img {
+                width: 24px;
+            }
+        }
+    }
+}
+
+@media only screen and (min-width: 993px) and (max-width: 1920px) {
+	.testimonials__top {
+		width: 80%;
+	}
+	.testimonials__main-wrapper {
+		width: 80%;
+	}
+}
+
+@media only screen and (min-width: 993px) and (max-width: 1560px) {
+	.testimonials__top h3 span {
+		padding: 0rem 0.5rem !important;
+	}
+	.testimonials__main-wrapper .testimonials__single .is-quote {
+		font-size: 4rem;
+	}
+}
+
+@media only screen and (max-width: 992px) {
+	.testimonials {
+		padding: 60px 0px;
+	}
+	.testimonials__top {
+		width: 90%;
+	}
+	.testimonials__top h3 img {
+		margin-top: -2px;
+		padding-right: 16px;
+		height: 2rem;
+	}
+	.testimonials__top h3 span {
+		padding: 0rem 0.5rem !important;
+	}
+	.testimonials__main-wrapper {
+		width: 90%;
+	}
+	.testimonials__main-wrapper .testimonials__single .is-quote {
+		font-size: 2rem;
+		letter-spacing: normal;
+	}
+	.testimonials__main-wrapper .testimonials__single .person-info img {
+		width: 5rem;
+	}
+	.testimonials .person-info__arrows {
+		width: 100%;
+		justify-content: center;
+		margin-top: 24px;
+	}
+	.testimonials .person-info__arrows .person-info__arrow-prev img {
+		width: 24px;
+	}
+	.testimonials .person-info__arrows .person-info__arrow-next img {
+		width: 24px;
+	}
+}

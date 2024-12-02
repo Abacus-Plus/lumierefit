@@ -1,0 +1,61 @@
+.palette {
+    padding: 100px 0;
+
+    &__main-wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+
+        .even {
+
+            .palette__single {
+
+                &:first-child {
+
+                    flex: 1;
+                }
+
+                &:last-child {
+                    
+                    width: 30%;
+                }
+            }
+        }
+    }
+
+    &__column-wrapper {
+        display: flex;
+        gap: 24px;
+
+        &:not(.even) {
+
+            .palette__single {
+
+                &:first-child {
+
+                    width: 30%;
+                }
+
+                &:last-child {
+                    flex: 1;
+                }
+            }
+        }
+    }
+
+    &__single {
+        padding: 35.5px 40px;
+        border-radius: 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 32px;
+
+        h3 {
+            letter-spacing: -5%;
+        }
+
+        .color-output {
+            text-transform: uppercase;
+        }
+    }
+}

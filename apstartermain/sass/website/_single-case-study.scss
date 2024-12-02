@@ -1,0 +1,139 @@
+.cs-section {
+    padding-top: 310px;
+    width: 90%;
+    margin: 0 auto;
+
+    h1 {
+        letter-spacing: -5%;
+        margin-bottom: 100px;
+    }
+
+    &__intro {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 200px;
+
+        .intro {
+            font-size: 1.75rem;
+        }
+
+        .year, .platform, .project-scope {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            flex: 1;
+        }
+    }
+
+    &__content {
+
+        .intro-image {
+            width: 100%;
+            height: 940px;
+            margin: 0 0 200px 0;
+
+            img {
+                border-radius: 16px;
+                object-fit: cover;
+                width: 100%;
+                height: 100%;
+            }
+        }
+
+        .wp-block-columns {
+            gap: 50px;
+            margin: 50px 0 200px 0;
+        }
+
+        h2 {
+            font-weight: 500;
+            color: white;
+            line-height: normal;
+            letter-spacing: -5%;
+            margin-bottom: 50px;
+        }
+
+        p {
+            color: white;
+            font-weight: 400;
+            line-height: normal;
+            font-size: 1.25rem;
+        }
+
+        ul {
+            margin: 24px 0;
+
+            li {
+                color: white;
+                font-weight: 400;
+                line-height: normal;
+                font-size: 1.25rem;
+            }
+        }
+
+        .with-background {
+            width: 95%;
+            height: 524px;
+            margin: 250px 0 200px 5%;
+            background: #31AB5A;
+            border-radius: 16px;
+
+            img {
+                border-radius: 16px;
+                object-fit: cover;
+                width: 100%;
+                height: 95%;
+                position: relative;
+                top: -50px;
+                right: 5%;
+            }
+        }
+
+        .wp-block-video {
+            margin: 50px 0 100px 0;
+
+            video {
+                height: 833px;
+                object-fit: cover;
+                border-radius: 16px;
+            }
+        }
+
+        .mobile-card {
+            padding: 8px 12px;
+            border-radius: 50px;
+            color: white;
+            border: 1px solid #FFFEFE33;
+            font-family: var(--primary-font);
+            font-weight: 400;
+            font-size: 1.25rem;
+            line-height: normal;
+            background: linear-gradient(to right, #FFFFFF36, #FFFFFF0F);
+            width: fit-content;
+        }
+
+        .desktop-card {
+            padding: 8px 12px;
+            border-radius: 50px;
+            color: white;
+            border: 1px solid #FFFEFE33;
+            font-family: var(--primary-font);
+            font-weight: 400;
+            font-size: 1.25rem;
+            line-height: normal;
+            background: linear-gradient(to right, #FFFFFF36, #FFFFFF0F);
+            width: fit-content;
+        }
+
+        .wp-block-image {
+            
+            img {
+                width: 100%;
+            }
+        }
+        
+        .bottom-is-100 {
+            margin-bottom: 100px;
+        }
+    }
+}
