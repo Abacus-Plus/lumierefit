@@ -1,0 +1,272 @@
+// General Styles
+.page-template-homepage,
+.single,
+.shop {
+    .xoo-wsc-basket {
+        display: none !important;
+    }
+}
+
+#sb_instagram {
+
+    .sbi_type_video .sbi_playbtn,
+    .sbi_type_carousel .sbi_playbtn,
+    .sbi_type_carousel .fa-clone,
+    .sbi_type_carousel .svg-inline--fa.fa-play,
+    .sbi_type_video .svg-inline--fa.fa-play {
+        display: none !important;
+    }
+}
+
+// Mobile Styles
+@media only screen and (max-width: 599px) {
+    .archive .new-products__heading-wrapper {
+        .show-hide-filters {
+            padding: 10px 26px;
+
+            span {
+                font-weight: 700;
+                text-transform: uppercase;
+            }
+        }
+    }
+
+    .instagram {
+        height: 600px;
+
+        #sb_instagram #sbi_load {
+            position: relative;
+            top: 65px;
+        }
+    }
+
+    .hero-section__main-wrapper {
+        top: unset;
+        bottom: 120px;
+    }
+
+    .site-header {
+        .tab-list {
+            padding-left: 22px;
+        }
+
+        .tab-content {
+            height: 75vh;
+        }
+    }
+
+    .parent,
+    .site-header .tab-item {
+        font-weight: 700;
+        text-transform: uppercase;
+    }
+
+    .overlay2 {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 14%;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: none;
+        z-index: 7;
+    }
+
+    .archive .new-products {
+        .show-filters {
+            height: 80%;
+        }
+    }
+
+    .single-product {
+        .product-section {
+            .rtwpvg-product {
+                .product-single-wrapper {
+                    gap: 10px;
+
+                    .summary-product {
+                        .entry-summary {
+                            gap: 10px;
+
+                            .variations_form div table tbody tr .woo-variation-items-wrapper {
+                                .image-variable-items-wrapper {
+                                    .image-variable-item {
+                                        width: 18%;
+                                        height: auto;
+                                    }
+
+                                    .selected {
+                                        opacity: 0.7;
+                                        border: 1px solid black;
+                                        border-radius: 4px;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .hero-section__main-wrapper {
+            bottom: 140px;
+        }
+
+        img.main-wrapper__logo {
+            width: 120px;
+        }
+    }
+
+    .new-products__product {
+        margin-right: auto;
+        min-width: 300px;
+        max-width: 300px;
+
+        .image-and-sizes {
+            a {
+                height: 500px;
+
+                img {
+                    height: 250px;
+                }
+            }
+        }
+    }
+
+    .archive .new-products {
+        .image-and-sizes {
+            a {
+                height: 250px;
+            }
+        }
+    }
+
+    #menu-mobile-menu {
+        li {
+            margin-bottom: 0.75rem;
+            opacity: 0.7;
+
+            a {
+                color: black;
+            }
+        }
+
+        width: 100%;
+        padding: 20px;
+    }
+
+    .mobilemenu-wrapper {
+        position: relative;
+        z-index: 10;
+        width: 100%;
+        background-color: #f5f5f5;
+        border-top: 1px solid #dddddd;
+        margin-top: -130px;
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
+    }
+
+    .site-header {
+        .main-wrapper__main-menu.active {
+            background-color: white;
+            margin-top: -20px;
+        }
+
+        .tab-content {
+            padding-bottom: 150px;
+        }
+    }
+
+    .new-products__filter {
+        opacity: 0;
+    }
+}
+
+// Desktop Styles
+img.main-wrapper__logo {
+    width: 250px;
+}
+
+.overlay2 {
+    display: none;
+}
+
+.woocommerce {
+    .woocommerce-customer-details {
+
+        .woocommerce-customer-details--email,
+        .woocommerce-customer-details--phone {
+            padding-left: 1.5em;
+            align-items: center;
+            display: flex;
+            margin-bottom: 5px;
+            margin-top: 3px;
+        }
+    }
+}
+
+@media only screen and (min-width: 599px) {
+    .single-product {
+        .product-section {
+            .rtwpvg-product {
+                .product-single-wrapper {
+                    .summary-product {
+                        .entry-summary {
+                            .variations_form div table tbody tr .woo-variation-items-wrapper {
+                                .image-variable-items-wrapper {
+                                    .image-variable-item {
+                                        width: 60px;
+                                        height: auto;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .product-section {
+            .rtwpvg-product {
+                .product-single-wrapper {
+                    .summary-product {
+                        .cross-sell-products {
+                            .cuw-product-card {
+                                justify-content: space-between;
+                                min-width: 100%;
+                            }
+
+                            .cuw-main-wrapper {
+                                display: flex;
+                                align-items: center;
+                                gap: 24px;
+                            }
+
+                            .cuw-message {
+                                display: none !important;
+                            }
+
+                            .cuw-actions {
+                                display: block !important;
+                            }
+
+                            .cuw-product-price {
+                                justify-content: flex-end;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .new-products__product {
+        .image-and-sizes {
+            a {
+                img {
+                    height: 670px;
+                }
+            }
+        }
+    }
+}
