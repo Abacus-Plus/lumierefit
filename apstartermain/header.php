@@ -36,116 +36,123 @@ $header = get_field('header', 'option');
 	<meta name="description" content="Osvijetlite svoj trening sa Lumiereom. Naša kolekcija inovativne sportske odjeće kreirana je da podigne vaše performanse i samopouzdanje, trening po trening.">
 	<meta name="google-site-verification" content="dXuWZpKO6M0Bu3HvjSf9w9yk_U9ljvSNH5isTFz61JE" />
 	<link rel="profile" href="https://gmpg.org/xfn/11">
-	<link rel="preload" href="https://lumierefit.ba/wp-content/uploads/2024/11/Black-Friday.png" as="image" type="image/png">
 
 	<?php wp_head(); ?>
+	<script type="text/javascript">
+		var ajaxurl = "<?php echo admin_url('admin-ajax.php'); ?>";
+	</script>
 </head>
 
 <body <?php body_class(); ?>>
 	<?php wp_body_open(); ?>
 	<div class="entry-popup">
-	<div class="entry-popup__overlay"></div>
-	<div class="entry-popup__content">
-		<img class="entry-popup__close" src="/wp-content/uploads/2024/08/x.svg" alt="Close Icons"/>
-		<div class="entry-popup__content-content">
-			<img class="entry-popup__content-image" src="/wp-content/uploads/2024/09/IMG_4004_jpg-scaled.jpeg" alt="Image"/>
-			<span>Ostvarite 10% popusta!</span>
-			<p>Lumierefit je pripremio izvanrednu ponudu za sve nove registrovane korisnike! Uživajte u 10% popusta na sve proizvode. Sve što trebate učiniti je kliknuti na opciju "Registruj se!", završiti proces registracije i započeti s kupovinom. Popust od 10% biće automatski primenjen u vašoj košarici.</p>
-			<p style="font-style:italic; font-weight:bold;">*Napomena: Kupon je moguće iskoristiti samo jednom u roku od 30 dana. Nakon toga, ovaj popust više neće biti dostupan!</p>
-			<a class="secondary-button small" href="/my-account/">Registruj se!</a>
+		<div class="entry-popup__overlay"></div>
+		<div class="entry-popup__content">
+			<img class="entry-popup__close" src="/wp-content/uploads/2024/08/x.svg" alt="Close Icons" />
+			<div class="entry-popup__content-content">
+				<img class="entry-popup__content-image" src="/wp-content/uploads/2024/09/IMG_4004_jpg-scaled.jpeg" alt="Image" />
+				<span>Ostvarite 10% popusta!</span>
+				<p>Lumierefit je pripremio izvanrednu ponudu za sve nove registrovane korisnike! Uživajte u 10% popusta na sve proizvode. Sve što trebate učiniti je kliknuti na opciju "Registruj se!", završiti proces registracije i započeti s kupovinom. Popust od 10% biće automatski primenjen u vašoj košarici.</p>
+				<p style="font-style:italic; font-weight:bold;">*Napomena: Kupon je moguće iskoristiti samo jednom u roku od 30 dana. Nakon toga, ovaj popust više neće biti dostupan!</p>
+				<a class="secondary-button small" href="/my-account/">Registruj se!</a>
+			</div>
 		</div>
 	</div>
-</div>
 
-<style>
-.entry-popup {
-	display: none;
-    position: fixed;
-    z-index: 999;
-    width: 100%;
-    height: 100vh;
-    align-items: center;
-    justify-content: center;
-}
+	<style>
+		.entry-popup {
+			display: none;
+			position: fixed;
+			z-index: 999;
+			width: 100%;
+			height: 100vh;
+			align-items: center;
+			justify-content: center;
+		}
 
-.entry-popup__overlay {
-    position: absolute;
-    z-index: -1;
-    background-color: rgba(0, 0, 0, 0.75);
-    width: 100%;
-    height: 100%;
-}
+		.entry-popup__overlay {
+			position: absolute;
+			z-index: -1;
+			background-color: rgba(0, 0, 0, 0.75);
+			width: 100%;
+			height: 100%;
+		}
 
-.entry-popup__content {
-    max-width: 500px;
-    margin: 0 auto;
-    background: white;
-    border-radius: 6px;
-    padding: 24px;
-    position: relative;
-}
+		.entry-popup__content {
+			max-width: 500px;
+			margin: 0 auto;
+			background: white;
+			border-radius: 6px;
+			padding: 24px;
+			position: relative;
+		}
 
-.entry-popup__close {
-    position: absolute;
-    right: 32px;
-    top: 32px;
-    cursor: pointer;
-	filter: invert(100%) sepia(100%) saturate(1%) hue-rotate(151deg) brightness(109%) contrast(98%);
-}
+		.entry-popup__close {
+			position: absolute;
+			right: 32px;
+			top: 32px;
+			cursor: pointer;
+			filter: invert(100%) sepia(100%) saturate(1%) hue-rotate(151deg) brightness(109%) contrast(98%);
+		}
 
-.entry-popup__content-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 24px;
-}
+		.entry-popup__content-content {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: 24px;
+		}
 
-.entry-popup__content-content span {
-	color: #161414;
-    font-weight: 400;
-    text-transform: uppercase;
-    line-height: 47.76px;
-    letter-spacing: 1px;
-    font-size: 2.5rem;
-    font-family: 'Fjalla One';
-    text-align: center;
-}
+		.entry-popup__content-content span {
+			color: #161414;
+			font-weight: 400;
+			text-transform: uppercase;
+			line-height: 47.76px;
+			letter-spacing: 1px;
+			font-size: 2.5rem;
+			font-family: 'Fjalla One';
+			text-align: center;
+		}
 
-.entry-popup__content-content p {
-	text-align: center;
-	color: #161414;
-	line-height: 1.2em;
-}
-	
-.entry-popup__content-image {
-	height: 300px;
-	width: 100%;
-	object-fit: cover;
-}
-	
-@media only screen and (max-width: 599px) {
-	.entry-popup__content {
-		max-width: 300px;
-		padding: 16px;
-	}
-	.entry-popup__content-image {
-		height: 200px;
-	}
-	.entry-popup__content-content {
-		gap: 12px;
-	}
-	.entry-popup__content-content span {
-		font-size: 1.5rem;
-	}
-	.entry-popup__content-content p {
-		font-size: .875rem;
-	}
-	.entry-popup__close {
-		top: 16px;
-		right: 16px;
-	}
-}
-</style>
+		.entry-popup__content-content p {
+			text-align: center;
+			color: #161414;
+			line-height: 1.2em;
+		}
+
+		.entry-popup__content-image {
+			height: 300px;
+			width: 100%;
+			object-fit: cover;
+		}
+
+		@media only screen and (max-width: 599px) {
+			.entry-popup__content {
+				max-width: 300px;
+				padding: 16px;
+			}
+
+			.entry-popup__content-image {
+				height: 200px;
+			}
+
+			.entry-popup__content-content {
+				gap: 12px;
+			}
+
+			.entry-popup__content-content span {
+				font-size: 1.5rem;
+			}
+
+			.entry-popup__content-content p {
+				font-size: .875rem;
+			}
+
+			.entry-popup__close {
+				top: 16px;
+				right: 16px;
+			}
+		}
+	</style>
 	<header class="site-header">
 		<div class="site-header__topbar">
 			<div class="container">
@@ -292,17 +299,17 @@ $header = get_field('header', 'option');
 								</ul>
 							</div>
 						</div>
-						
+
 						<div class="mobilemenu-wrapper">
 							<?php
-						$args = array(
-							'container' => false,
-							'theme_location' => 'menu-mobile',
-							'items_wrap' => '<ul id="%1$s" class="menu-items">%3$s</ul>',
-							'add_li_class' => 'nav-item'
-						);
-						wp_nav_menu($args);
-						?>
+							$args = array(
+								'container' => false,
+								'theme_location' => 'menu-mobile',
+								'items_wrap' => '<ul id="%1$s" class="menu-items">%3$s</ul>',
+								'add_li_class' => 'nav-item'
+							);
+							wp_nav_menu($args);
+							?>
 						</div>
 					</div>
 				</nav>
@@ -500,53 +507,53 @@ $header = get_field('header', 'option');
 			});
 		});
 	</script>
-	
-	<?php if ( is_front_page() && !is_user_logged_in() ) : ?>
-<script>
-    jQuery(document).ready(function($) {
-        // Function to set a cookie
-        function setCookie(name, value, days) {
-            var expires = "";
-            if (days) {
-                var date = new Date();
-                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-                expires = "; expires=" + date.toUTCString();
-            }
-            document.cookie = name + "=" + (value || "") + expires + "; path=/";
-        }
 
-        // Function to get a cookie
-        function getCookie(name) {
-            var nameEQ = name + "=";
-            var ca = document.cookie.split(';');
-            for (var i = 0; i < ca.length; i++) {
-                var c = ca[i];
-                while (c.charAt(0) == ' ') c = c.substring(1, c.length);
-                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
-            }
-            return null;
-        }
+	<?php if (is_front_page() && !is_user_logged_in()) : ?>
+		<script>
+			jQuery(document).ready(function($) {
+				// Function to set a cookie
+				function setCookie(name, value, days) {
+					var expires = "";
+					if (days) {
+						var date = new Date();
+						date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+						expires = "; expires=" + date.toUTCString();
+					}
+					document.cookie = name + "=" + (value || "") + expires + "; path=/";
+				}
 
-        // Check if the popup has already been shown
-        if (!getCookie('popup_shown')) {
-            // Initially hide the popup
-            $('.entry-popup').css('display', 'none');
-            
-            // Show the popup after 1000ms
-            setTimeout(function() {
-                $('.entry-popup').css('display', 'flex');
-            }, 1000);
-            
-            // Close the popup when the close button is clicked
-            $('.entry-popup__close').click(function() {
-                $('.entry-popup').css('display', 'none');
-                // Set a cookie to expire in 24 hours
-                setCookie('popup_shown', 'true', 1);
-            });
-        }
-    });
-</script>
-<?php endif; ?>
+				// Function to get a cookie
+				function getCookie(name) {
+					var nameEQ = name + "=";
+					var ca = document.cookie.split(';');
+					for (var i = 0; i < ca.length; i++) {
+						var c = ca[i];
+						while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+						if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+					}
+					return null;
+				}
+
+				// Check if the popup has already been shown
+				if (!getCookie('popup_shown')) {
+					// Initially hide the popup
+					$('.entry-popup').css('display', 'none');
+
+					// Show the popup after 1000ms
+					setTimeout(function() {
+						$('.entry-popup').css('display', 'flex');
+					}, 1000);
+
+					// Close the popup when the close button is clicked
+					$('.entry-popup__close').click(function() {
+						$('.entry-popup').css('display', 'none');
+						// Set a cookie to expire in 24 hours
+						setCookie('popup_shown', 'true', 1);
+					});
+				}
+			});
+		</script>
+	<?php endif; ?>
 </body>
 
 </html>

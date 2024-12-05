@@ -2,6 +2,27 @@
 // Template for wishlist page
 // Template Name: Wishlist
 get_header();
+
+$user_id = get_current_user_id();
+$wishlist = [];
+
+if ($user_id) {
+    // Get wishlist from user meta
+    $wishlist_string = get_user_meta($user_id, 'wishlist', true);
+    if (!empty($wishlist_string)) {
+        $wishlist = array_filter(array_map('intval', explode(',', $wishlist_string)));
+    }
+} else {
+    // Get wishlist from cookie
+    if (isset($_COOKIE['wishlist_ids'])) {
+        $wishlist = json_decode(stripslashes($_COOKIE['wishlist_ids']), true);
+        $wishlist = is_array($wishlist) ? array_filter(array_map('intval', $wishlist)) : [];
+    }
+}
+
+// Debug information (remove in production)
+error_log('User ID: ' . $user_id);
+error_log('Wishlist: ' . print_r($wishlist, true));
 ?>
 <section class="new-products">
     <div class="container">
@@ -11,21 +32,6 @@ get_header();
         <div class="new-products__slider">
             <div class="new-products__wrapper">
                 <?php
-                // Fetch the wishlist from the user's meta
-                $user_id = get_current_user_id();
-                if ($user_id) {
-                    // Logged-in user
-                    $wishlist = get_user_meta($user_id, 'wishlist', true);
-                    $wishlist = $wishlist ? explode(',', $wishlist) : [];
-                } else {
-                    // Guest user
-                    $wishlist = isset($_COOKIE['wishlist_ids']) ? json_decode(stripslashes($_COOKIE['wishlist_ids']), true) : [];
-                }
-
-
-
-
-
                 if ($wishlist) {
                     $wishlist = array_map('intval', $wishlist); // Ensure product IDs are integers
                     $args = array(

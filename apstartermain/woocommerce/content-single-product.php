@@ -297,9 +297,42 @@ if (post_password_required()) {
                                         </a>
 
 
-                                        <?php if (has_term('novo', 'product_cat', $product->get_id())) : ?>
-                                            <span class="new-label w-700 color-is-white">Novo</span>
-                                        <?php endif; ?>
+                                        <?php
+                                        if (has_term('novo', 'product_cat', $product->get_id())) {
+                                            echo '<span class="new-label w-700 color-is-white">Novo</span>';
+                                        }
+
+                                        if ($product->is_type('variable')) {
+                                            // Get the variations of the current color
+                                            $variations_for_color = $filtered_variations[$color_slug] ?? [];
+                                            $displayed_discount = false; // Track if the sale label is displayed for this specific color
+
+                                            foreach ($variations_for_color as $variation_product) {
+                                                $regular_price = $variation_product->get_regular_price();
+                                                $sale_price = $variation_product->get_sale_price();
+
+                                                // Only calculate discount for variations that are on sale
+                                                if ($sale_price && $regular_price && $regular_price > $sale_price) {
+                                                    $discount_percentage = round((($regular_price - $sale_price) / $regular_price) * 100);
+
+                                                    // Display the sale badge only once per color group
+                                                    if (!$displayed_discount) {
+                                                        echo '<span class="new-label w-700 color-is-white black">-' . $discount_percentage . '%</span>';
+                                                        $displayed_discount = true;
+                                                    }
+                                                }
+                                            }
+                                        } else {
+                                            // For simple products
+                                            $regular_price = $product->get_regular_price();
+                                            $sale_price = $product->get_sale_price();
+
+                                            if ($regular_price && $sale_price) {
+                                                $discount_percentage = round((($regular_price - $sale_price) / $regular_price) * 100);
+                                                echo '<span class="new-label w-700 color-is-white black">-' . $discount_percentage . '%</span>';
+                                            }
+                                        }
+                                        ?>
                                     </div>
                                 </div>
                                 <div class="image-and-sizes">
@@ -524,20 +557,18 @@ if (post_password_required()) {
                     $('.btn-disabled').hide(); // Hide the btn-disabled by default on reset
                 });
             });
-document.addEventListener('DOMContentLoaded', function () {
-    const targetDiv = document.querySelector('.rtwpvg-images');
-    if (!targetDiv) return;
+            document.addEventListener('DOMContentLoaded', function() {
+                const targetDiv = document.querySelector('.rtwpvg-images');
+                if (!targetDiv) return;
 
-    if (window.innerWidth <= 599) {
-        // Apply the transition after the page loads
-        setTimeout(function () {
-            targetDiv.style.transition = 'opacity 0.5s ease'; // Smooth transition
-            targetDiv.style.opacity = 1;
-        }, 500); // Delay of 1 second
-    }
-});
-
-			
+                if (window.innerWidth <= 599) {
+                    // Apply the transition after the page loads
+                    setTimeout(function() {
+                        targetDiv.style.transition = 'opacity 0.5s ease'; // Smooth transition
+                        targetDiv.style.opacity = 1;
+                    }, 500); // Delay of 1 second
+                }
+            });
         </script>
 
         <style>

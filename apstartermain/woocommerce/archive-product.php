@@ -398,10 +398,16 @@ $selected_categories = array_diff($selected_categories, [$selected_gender_slug])
                 // Ensure $selected_gender_slug is an array if multiple categories are passed
                 $selected_gender_slug = isset($categories[0]) ? $categories[0] : '';
 
+                $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
+
                 $args = array(
                     'post_type' => 'product',
-                    'posts_per_page' => -1,
+                    'posts_per_page' => 12,
+                    'paged' => $paged,
                     'tax_query' => array('relation' => 'AND'),
+                    'update_post_meta_cache' => true,
+                    'update_post_term_cache' => true,
+                    'cache_results' => true
                 );
 
                 // If gender is selected, add to the tax_query
@@ -477,359 +483,198 @@ $selected_categories = array_diff($selected_categories, [$selected_gender_slug])
                         break;
                 }
 
-                $loop = new WP_Query($args);
+                $products_query = new WP_Query($args);
 
-                while ($loop->have_posts()) :
-                    $loop->the_post();
-                    global $product;
+                if ($products_query->have_posts()) {
+                    while ($products_query->have_posts()) {
+                        $products_query->the_post();
+                        global $product;
 
-                    if ($product->is_type('variable')) {
-                        $variations = $product->get_available_variations();
-                        $filtered_variations = array();
+                        if ($product->is_type('variable')) {
+                            $variations = $product->get_available_variations();
+                            $filtered_variations = array();
 
-                        foreach ($variations as $variation) {
-                            $variation_id = $variation['variation_id'];
-                            $variation_product = new WC_Product_Variation($variation_id);
-                            $attributes = $variation_product->get_attributes();
+                            foreach ($variations as $variation) {
+                                $variation_id = $variation['variation_id'];
+                                $variation_product = new WC_Product_Variation($variation_id);
+                                $attributes = $variation_product->get_attributes();
 
-                            // Check if the variation's color is in the selected colors or if no color filter is applied
-                            if (isset($attributes['pa_boja'])) {
-                                $color_slug = $attributes['pa_boja'];
-                                if (in_array($color_slug, $colors) || empty($colors)) {
-                                    $filtered_variations[$color_slug][] = $variation_product;
+                                // Check if the variation's color is in the selected colors or if no color filter is applied
+                                if (isset($attributes['pa_boja'])) {
+                                    $color_slug = $attributes['pa_boja'];
+                                    if (in_array($color_slug, $colors) || empty($colors)) {
+                                        $filtered_variations[$color_slug][] = $variation_product;
+                                    }
                                 }
                             }
-                        }
 
-                        foreach ($filtered_variations as $color_slug => $variation_products) :
-                            $default_variation = $filtered_variations[$color_slug][0];
-                            $color_term = get_term_by('slug', $color_slug, 'pa_boja');
+                            foreach ($filtered_variations as $color_slug => $variation_products) :
+                                $default_variation = $filtered_variations[$color_slug][0];
+                                $color_term = get_term_by('slug', $color_slug, 'pa_boja');
 
-                            // Get the ACF field value
-                            $acf_realnameattribute = get_field('realnameattribute', $color_term);
+                                // Get the ACF field value
+                                $acf_realnameattribute = get_field('realnameattribute', $color_term);
 
-                            // Use the ACF field value or fallback to the color term name if ACF field is empty
-                            $color_name = !empty($acf_realnameattribute) ? $acf_realnameattribute : ($color_term ? $color_term->name : '');
+                                // Use the ACF field value or fallback to the color term name if ACF field is empty
+                                $color_name = !empty($acf_realnameattribute) ? $acf_realnameattribute : ($color_term ? $color_term->name : '');
 
                 ?>
-                            <div class="new-products__product" data-product-id="<?php echo $product->get_id(); ?>" data-color-slug="<?php echo esc_attr($color_slug); ?>">
-                                <div class="wishlist">
-                                    <div class="wishlist__wrapper">
-                                        <?php
-                                        $user_id = get_current_user_id();
-                                        $wishlist = [];
+                                <div class="new-products__product" data-product-id="<?php echo $product->get_id(); ?>" data-color-slug="<?php echo esc_attr($color_slug); ?>">
+                                    <div class="wishlist">
+                                        <div class="wishlist__wrapper">
+                                            <?php
+                                            $user_id = get_current_user_id();
+                                            $wishlist = [];
 
-                                        if ($user_id) {
-                                            // Logged-in user
-                                            $wishlist = get_user_meta($user_id, 'wishlist', true);
-                                            $wishlist = $wishlist ? explode(',', $wishlist) : [];
-                                        } else {
-                                            // Guest user
-                                            if (isset($_COOKIE['wishlist_ids'])) {
-                                                $wishlist = json_decode(stripslashes($_COOKIE['wishlist_ids']), true);
-                                                if (!is_array($wishlist)) {
-                                                    $wishlist = [];
+                                            if ($user_id) {
+                                                // Logged-in user
+                                                $wishlist = get_user_meta($user_id, 'wishlist', true);
+                                                $wishlist = $wishlist ? explode(',', $wishlist) : [];
+                                            } else {
+                                                // Guest user
+                                                if (isset($_COOKIE['wishlist_ids'])) {
+                                                    $wishlist = json_decode(stripslashes($_COOKIE['wishlist_ids']), true);
+                                                    if (!is_array($wishlist)) {
+                                                        $wishlist = [];
+                                                    }
                                                 }
                                             }
-                                        }
 
-                                        $is_in_wishlist = in_array($product->get_id(), $wishlist);
-                                        ?>
-                                        <a href="#" class="wishlist-icon" data-product-id="<?php echo $product->get_id(); ?>">
-                                            <img src="/wp-content/uploads/2024/07/<?php echo $is_in_wishlist ? 'heart-fill-svgrepo-com.svg' : 'heart-svgrepo-com.svg'; ?>" alt="Wishlist" />
-                                        </a>
+                                            $is_in_wishlist = in_array($product->get_id(), $wishlist);
+                                            ?>
+                                            <a href="#" class="wishlist-icon" data-product-id="<?php echo $product->get_id(); ?>">
+                                                <img src="/wp-content/uploads/2024/07/<?php echo $is_in_wishlist ? 'heart-fill-svgrepo-com.svg' : 'heart-svgrepo-com.svg'; ?>" alt="Wishlist" />
+                                            </a>
 
-                                        <?php if (has_term('novo', 'product_cat', $product->get_id())) {
-    echo '<span class="new-label w-700 color-is-white">Novo</span>';
-}
+                                            <?php
+                                            if (has_term('novo', 'product_cat', $product->get_id())) {
+                                                echo '<span class="new-label w-700 color-is-white">Novo</span>';
+                                            }
 
-// Check if the product is on sale
-if ($product->is_on_sale()) {
-    // For variable products, calculate the sale percentage based on the lowest variation price
-    if ($product->is_type('variable')) {
-        $regular_price = $product->get_variation_regular_price('max');
-        $sale_price = $product->get_variation_sale_price('min');
-    } else {
-        // For simple products
-        $regular_price = $product->get_regular_price();
-        $sale_price = $product->get_sale_price();
-    }
+                                            if ($product->is_type('variable')) {
+                                                // Get the variations of the current color
+                                                $variations_for_color = $filtered_variations[$color_slug] ?? [];
+                                                $displayed_discount = false; // Track if the sale label is displayed for this specific color
 
-    // Calculate the discount percentage
-    if ($regular_price && $sale_price) {
-        $discount_percentage = round((($regular_price - $sale_price) / $regular_price) * 100);
+                                                foreach ($variations_for_color as $variation_product) {
+                                                    $regular_price = $variation_product->get_regular_price();
+                                                    $sale_price = $variation_product->get_sale_price();
 
-        // Display the sale badge with the same class as "Novo"
-        echo '<span class="new-label w-700 color-is-white black">-' . $discount_percentage . '%</span>';
-    }
-}
-?>
-                                    </div>
-                                </div>
-                                <div class="image-and-sizes">
-                                    <a href="<?php the_permalink(); ?>" class="variation-image" data-color-slug="<?php echo esc_attr($color_slug); ?>">
-                                        <img src="<?php echo wp_get_attachment_url($default_variation->get_image_id()); ?>" alt="Product Image" />
-                                    </a>
-                                    <?php
-                                    $sizes = wc_get_product_terms($product->get_id(), 'pa_velicina', array('fields' => 'names'));
-                                    if ($sizes) {
-                                        $size_order = array('XS', 'S', 'M', 'L', 'XL', 'XXL');
-                                        usort($sizes, function ($a, $b) use ($size_order) {
-                                            $pos_a = array_search($a, $size_order);
-                                            $pos_b = array_search($b, $size_order);
-                                            return $pos_a - $pos_b;
-                                        });
+                                                    // Only calculate discount for variations that are on sale
+                                                    if ($sale_price && $regular_price && $regular_price > $sale_price) {
+                                                        $discount_percentage = round((($regular_price - $sale_price) / $regular_price) * 100);
 
-                                        // Get the product's available variations
-                                        $available_variations = $product->get_available_variations();
-                                    ?>
-                                        <div class="sizes">
-                                            <span class="korpa w-400 color-is-neutral-900">Dodaj u korpu</span>
-                                            <div class="sizes__wrapper">
-                                                <?php
-                                                foreach ($sizes as $size) {
-                                                    $term = get_term_by('name', $size, 'pa_velicina');
-                                                    $size_slug = $term ? $term->slug : ''; // Get the slug from the term
-
-                                                    // Initialize in_stock variable to false by default for each color and size
-                                                    $is_in_stock_for_color = false;
-
-                                                    foreach ($available_variations as $variation) {
-                                                        $variation_attributes = $variation['attributes'];
-
-                                                        // Check if this variation matches the current color and size
-                                                        if (isset($variation_attributes['attribute_pa_boja']) && $variation_attributes['attribute_pa_velicina']) {
-                                                            $variation_color = $variation_attributes['attribute_pa_boja'];
-                                                            $variation_size = $variation_attributes['attribute_pa_velicina'];
-
-                                                            // Assuming you have the $color_slug already defined for the color
-                                                            if ($variation_color === $color_slug && $variation_size === $size_slug) {
-                                                                $variation_product = new WC_Product_Variation($variation['variation_id']);
-
-                                                                // Check stock quantity
-                                                                $stock_status = $variation_product->get_stock_quantity();
-
-                                                                // Disable size if stock is 0, regardless of backorders
-                                                                if ($stock_status > 0) {
-                                                                    $is_in_stock_for_color = true;
-                                                                }
-
-                                                                break; // Exit loop once the match is found
-                                                            }
+                                                        // Display the sale badge only once per color group
+                                                        if (!$displayed_discount) {
+                                                            echo '<span class="new-label w-700 color-is-white black">-' . $discount_percentage . '%</span>';
+                                                            $displayed_discount = true;
                                                         }
                                                     }
+                                                }
+                                            } else {
+                                                // For simple products
+                                                $regular_price = $product->get_regular_price();
+                                                $sale_price = $product->get_sale_price();
 
-                                                    // Apply the 'disabled' class if stock is 0 for the specific color and size combination
-                                                    $disabled_class = !$is_in_stock_for_color ? 'disabled' : '';
-                                                ?>
-                                                    <a href="#"
-                                                        class="size-numbers w-400 color-is-neutral-900 <?php echo esc_attr($disabled_class); ?>"
-                                                        data-size-slug="<?php echo esc_attr($size_slug); ?>"
-                                                        <?php echo !$is_in_stock_for_color ? 'aria-disabled="true"' : ''; ?>>
-                                                        <?php echo esc_html($size); ?>
-                                                    </a>
-                                                <?php } ?>
-                                            </div>
+                                                if ($regular_price && $sale_price) {
+                                                    $discount_percentage = round((($regular_price - $sale_price) / $regular_price) * 100);
+                                                    echo '<span class="new-label w-700 color-is-white black">-' . $discount_percentage . '%</span>';
+                                                }
+                                            }
+                                            ?>
                                         </div>
-                                    <?php } ?>
+                                    </div>
+                                    <div class="image-and-sizes">
+                                        <a href="<?php the_permalink(); ?>" class="variation-image" data-color-slug="<?php echo esc_attr($color_slug); ?>">
+                                            <img src="<?php echo wp_get_attachment_url($default_variation->get_image_id()); ?>" alt="Product Image" />
+                                        </a>
+                                        <?php
+                                        $sizes = wc_get_product_terms($product->get_id(), 'pa_velicina', array('fields' => 'names'));
+                                        if ($sizes) {
+                                            $size_order = array('XS', 'S', 'M', 'L', 'XL', 'XXL');
+                                            usort($sizes, function ($a, $b) use ($size_order) {
+                                                $pos_a = array_search($a, $size_order);
+                                                $pos_b = array_search($b, $size_order);
+                                                return $pos_a - $pos_b;
+                                            });
+
+                                            // Get the product's available variations
+                                            $available_variations = $product->get_available_variations();
+                                        ?>
+                                            <div class="sizes">
+                                                <span class="korpa w-400 color-is-neutral-900">Dodaj u korpu</span>
+                                                <div class="sizes__wrapper">
+                                                    <?php
+                                                    foreach ($sizes as $size) {
+                                                        $term = get_term_by('name', $size, 'pa_velicina');
+                                                        $size_slug = $term ? $term->slug : ''; // Get the slug from the term
+
+                                                        // Initialize in_stock variable to false by default for each color and size
+                                                        $is_in_stock_for_color = false;
+
+                                                        foreach ($available_variations as $variation) {
+                                                            $variation_attributes = $variation['attributes'];
+
+                                                            // Check if this variation matches the current color and size
+                                                            if (isset($variation_attributes['attribute_pa_boja']) && $variation_attributes['attribute_pa_velicina']) {
+                                                                $variation_color = $variation_attributes['attribute_pa_boja'];
+                                                                $variation_size = $variation_attributes['attribute_pa_velicina'];
+
+                                                                // Assuming you have the $color_slug already defined for the color
+                                                                if ($variation_color === $color_slug && $variation_size === $size_slug) {
+                                                                    $variation_product = new WC_Product_Variation($variation['variation_id']);
+
+                                                                    // Check stock quantity
+                                                                    $stock_status = $variation_product->get_stock_quantity();
+
+                                                                    // Disable size if stock is 0, regardless of backorders
+                                                                    if ($stock_status > 0) {
+                                                                        $is_in_stock_for_color = true;
+                                                                    }
+
+                                                                    break; // Exit loop once the match is found
+                                                                }
+                                                            }
+                                                        }
+
+                                                        // Apply the 'disabled' class if stock is 0 for the specific color and size combination
+                                                        $disabled_class = !$is_in_stock_for_color ? 'disabled' : '';
+                                                    ?>
+                                                        <a href="#"
+                                                            class="size-numbers w-400 color-is-neutral-900 <?php echo esc_attr($disabled_class); ?>"
+                                                            data-size-slug="<?php echo esc_attr($size_slug); ?>"
+                                                            <?php echo !$is_in_stock_for_color ? 'aria-disabled="true"' : ''; ?>>
+                                                            <?php echo esc_html($size); ?>
+                                                        </a>
+                                                    <?php } ?>
+                                                </div>
+                                            </div>
+                                        <?php } ?>
+                                    </div>
+                                    <div class="new-products__content">
+                                        <a href="<?php the_permalink(); ?>">
+                                            <h6 class="w-700 color-is-neutral-900 hm-6"><?php the_title(); ?></h6>
+                                        </a>
+                                        <p class="color w-400 color-is-neutral-300">
+                                            <?php echo esc_html($color_name); ?>
+                                        </p>
+                                        <span class="price w-700 color-is-neutral-900"><?php echo $default_variation->get_price_html(); ?></span>
+                                    </div>
                                 </div>
-                                <div class="new-products__content">
-                                    <a href="<?php the_permalink(); ?>">
-                                        <h6 class="w-700 color-is-neutral-900 hm-6"><?php the_title(); ?></h6>
-                                    </a>
-                                    <p class="color w-400 color-is-neutral-300">
-                                        <?php echo esc_html($color_name); ?>
-                                    </p>
-                                    <span class="price w-700 color-is-neutral-900"><?php echo $default_variation->get_price_html(); ?></span>
-                                </div>
-                            </div>
                 <?php
-                        endforeach;
+                            endforeach;
+                        }
                     }
-                endwhile;
-                wp_reset_postdata();
+
+                    wp_reset_postdata();
+                }
                 ?>
-            </div>
-
-
-
+            </div> <!-- End of new-products__wrapper -->
         </div>
+    </div>
+    <div class="pagination-container">
+        <?php custom_shop_pagination($products_query); ?>
     </div>
 </section>
 
 <?php get_footer(); ?>
-
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var filterToggle = document.querySelector('.show-hide-filters');
-        var filterContainer = document.querySelector('.new-products__filter');
-        var overlay = document.querySelector('.overlay2');
-        var sortOptions = document.querySelectorAll('.sort-option');
-        var categoryOptions = document.querySelectorAll('.category-option');
-        var colorOptions = document.querySelectorAll('.color-option');
-        var sizeOptions = document.querySelectorAll('.size-option');
-        var applyFiltersBtn = document.getElementById('apply-filters');
-
-        // Define currentGender based on URL parameter
-        var currentUrl = new URL(window.location.href);
-        var categoriesParam = currentUrl.searchParams.get('categories');
-        var currentGender = categoriesParam ? categoriesParam.split(',')[0] : '';
-
-        // Initialize filters if needed
-        if (window.innerWidth <= 599) {
-            filterContainer.classList.remove('show-filters');
-            filterToggle.querySelector('span').textContent = 'Prikaži filtere';
-        }
-
-        filterToggle.addEventListener('click', function() {
-            filterContainer.classList.toggle('show-filters');
-            var isShowing = filterContainer.classList.contains('show-filters');
-            filterToggle.querySelector('span').textContent = isShowing ? 'Sakrij filtere' : 'Prikaži filtere';
-            if (window.innerWidth <= 599) {
-                // Show or hide the overlay
-                if (isShowing) {
-                    overlay.style.display = 'block';
-                    $('body').addClass('no-scroll');
-                } else {
-                    overlay.style.display = 'none';
-                    $('body').removeClass('no-scroll');
-                }
-            }
-        });
-
-        // Prevent clicks on the overlay from closing the filters
-        overlay.addEventListener('click', function(event) {
-            event.stopPropagation();
-        });
-
-        function collectSelectedFilters() {
-            var selectedSort = Array.from(sortOptions).find(option => option.checked)?.value || '';
-            var selectedCategories = Array.from(categoryOptions).filter(option => option.checked).map(option => option.value);
-            var selectedColors = Array.from(colorOptions).filter(option => option.checked).map(option => option.value.split(',')).flat();
-            var selectedSizes = Array.from(sizeOptions).filter(option => option.checked).map(option => option.value);
-
-            return {
-                selectedSort,
-                selectedCategories,
-                selectedColors,
-                selectedSizes
-            };
-        }
-
-        function applyFilters() {
-            var filters = collectSelectedFilters();
-            var categories = [currentGender];
-
-            // Add selected categories
-            if (filters.selectedCategories.length > 0) {
-                categories = categories.concat(filters.selectedCategories);
-            }
-
-            // Update the URL parameters
-            currentUrl.searchParams.set('categories', categories.join(','));
-
-            if (filters.selectedColors.length > 0) {
-                currentUrl.searchParams.set('colors', filters.selectedColors.join(','));
-            } else {
-                currentUrl.searchParams.delete('colors');
-            }
-
-            if (filters.selectedSizes.length > 0) {
-                currentUrl.searchParams.set('sizes', filters.selectedSizes.join(','));
-            } else {
-                currentUrl.searchParams.delete('sizes');
-            }
-
-            if (filters.selectedSort) {
-                currentUrl.searchParams.set('sort_by', filters.selectedSort);
-            } else {
-                currentUrl.searchParams.delete('sort_by');
-            }
-
-            // Navigate to the updated URL
-            window.location.href = currentUrl.toString();
-        }
-
-
-        applyFiltersBtn.addEventListener('click', function() {
-            applyFilters();
-        });
-    });
-			
-	document.addEventListener('DOMContentLoaded', function () {
-    const targetDiv = document.querySelector('.new-products__filter');
-    if (!targetDiv) return;
-
-    if (window.innerWidth <= 599) {
-        // Apply the transition after the page loads
-        setTimeout(function () {
-            targetDiv.style.transition = 'opacity 0.5s ease'; // Smooth transition
-            targetDiv.style.opacity = 1;
-        }, 500); // Delay of 1 second
-    }
-	});
-</script>
-
-<script>
-    document.querySelectorAll('.color-label').forEach(label => {
-        label.addEventListener('click', function() {
-            const checkbox = this.querySelector('.color-option');
-            checkbox.checked = !checkbox.checked; // Toggle the checkbox state
-
-            if (checkbox.checked) {
-                this.classList.add('checked'); // Add checked class
-            } else {
-                this.classList.remove('checked'); // Remove checked class
-            }
-
-            // Optional: Update the display of the spans based on the checkbox state
-            const firstSpan = this.querySelector('span:first-child');
-            const secondSpan = this.querySelector('span:nth-child(2)');
-            firstSpan.style.display = checkbox.checked ? 'none' : 'block';
-            secondSpan.style.display = checkbox.checked ? 'block' : 'none';
-        });
-    });
-</script>
-
-<style>
-    div#sort-options {
-        gap: 14px;
-        ;
-    }
-
-    .accordion label {
-        display: flex;
-        align-items: center;
-        gap: 24px;
-    }
-
-    input[type="checkbox"] {
-        appearance: none;
-    }
-
-    input[type="checkbox"]::before {
-        display: block;
-        content: '';
-        background-color: rgba(26, 26, 26, .15);
-        box-shadow: inset 1px 1px 2px #0000001a;
-        border-radius: 2px;
-        width: 18px;
-        height: 18px;
-    }
-
-    input[type="checkbox"]:checked::before {
-        background-image: url('/wp-content/uploads/2024/09/checkmark-svgrepo-com.svg');
-        background-size: 12px;
-        background-repeat: no-repeat;
-        background-position: center center;
-    }
-
-    .category-listing {
-        padding: 12px 0;
-    }
-
-    .category-listing button.accordion-button.collapsed {
-        padding: 8px 0;
-    }
-</style>

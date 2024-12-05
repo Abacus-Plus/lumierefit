@@ -33,7 +33,6 @@
 
 
 
-
 if (!defined('_S_VERSION')) {
 
 
@@ -44,7 +43,6 @@ if (!defined('_S_VERSION')) {
 
 	define('_S_VERSION', '1.0.0');
 }
-
 
 
 
@@ -410,7 +408,6 @@ add_action('after_setup_theme', 'abacusplus_setup');
 
 
 
-
 /**
 
 
@@ -450,7 +447,6 @@ function abacusplus_content_width()
 
 
 add_action('after_setup_theme', 'abacusplus_content_width', 0);
-
 
 
 
@@ -534,7 +530,6 @@ add_action('widgets_init', 'abacusplus_widgets_init');
 
 
 
-
 /**
 
 
@@ -580,12 +575,11 @@ function abacusplus_scripts()
 
 
 
+	if (is_front_page()) {
+		wp_enqueue_style('slick-css', 'https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css');
 
-
-	wp_enqueue_style('slick-css', 'https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css');
-
-	wp_enqueue_style('slick-theme-css', 'https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css');
-
+		wp_enqueue_style('slick-theme-css', 'https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css');
+	}
 	wp_enqueue_style('abacusplus-style', get_stylesheet_uri(), array(), _S_VERSION);
 
 	wp_style_add_data('abacusplus-style', 'rtl', 'replace');
@@ -595,6 +589,7 @@ function abacusplus_scripts()
 	wp_enqueue_script('abacusplus-navigation', get_template_directory_uri() . '/js/navigation.js', array(), _S_VERSION, true);
 
 	wp_enqueue_script('abacusplus-main', get_template_directory_uri() . '/js/main.js', array(), mt_rand(), true);
+	wp_enqueue_script('abacusplus-shop', get_template_directory_uri() . '/js/shop.js', array(), mt_rand(), true);
 
 
 	wp_enqueue_script('bootstrap', 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js', array(), mt_rand(), false);
@@ -602,12 +597,14 @@ function abacusplus_scripts()
 
 
 
+	if (is_front_page()) {
+		wp_enqueue_script('slick-js', 'https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js', array('jquery'), false, true);
+	}
 
-	wp_enqueue_script('slick-js', 'https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js', array('jquery'), false, true);
+	if (is_page_template("contact.php") || is_page_template("shops.php")) {
 
-	wp_enqueue_script('googleMap', '//maps.googleapis.com/maps/api/js?key=AIzaSyCIxGrGOx0qwePbgKmGlX6hpD8msHyZMAE', NULL, mt_rand(), true);
-
-
+		wp_enqueue_script('googleMap', '//maps.googleapis.com/maps/api/js?key=AIzaSyCIxGrGOx0qwePbgKmGlX6hpD8msHyZMAE', NULL, mt_rand(), true);
+	}
 
 
 	if (is_singular() && comments_open() && get_option('thread_comments')) {
@@ -1525,36 +1522,34 @@ add_action('wp_ajax_nopriv_toggle_wishlist', 'toggle_wishlist');
 
 function toggle_wishlist()
 {
-	// Retrieve the current user ID
-	$user_id = get_current_user_id();
-
-	if (isset($_POST['wishlist_ids'])) {
-		// Decode the JSON array from the request
-		$wishlist_json = stripslashes($_POST['wishlist_ids']);
-		$wishlist = json_decode($wishlist_json, true);
-
-		// Debug: Check if JSON decoding is successful
-		if (json_last_error() !== JSON_ERROR_NONE) {
-			wp_send_json_error('JSON Decode Error: ' . json_last_error_msg());
-		}
-
-		// Ensure that wishlist is an array
-		if (!is_array($wishlist)) {
-			$wishlist = [];
-		}
-
-		// Save the wishlist for logged-in users in user meta
-		if ($user_id) {
-			update_user_meta($user_id, 'wishlist', implode(',', $wishlist));
-		} else {
-			// Save the wishlist in cookies for guest users
-			setcookie('wishlist_ids', json_encode($wishlist), time() + (86400 * 30), '/'); // 30 days
-		}
-
-		wp_send_json_success('Wishlist updated successfully.');
+	// Get wishlist data from request
+	if (!isset($_POST['wishlist_ids'])) {
+		wp_send_json_error('No wishlist IDs provided.');
+		return;
 	}
 
-	wp_send_json_error('No wishlist IDs provided.');
+	$wishlist_json = stripslashes($_POST['wishlist_ids']);
+	$wishlist = json_decode($wishlist_json, true);
+
+	if (!is_array($wishlist)) {
+		$wishlist = [];
+	}
+
+	// Get current user ID
+	$user_id = get_current_user_id();
+
+	if ($user_id) {
+		// For logged-in users, store in user meta
+		update_user_meta($user_id, 'wishlist', implode(',', $wishlist));
+	}
+
+	// Always set cookie (as fallback)
+	setcookie('wishlist_ids', json_encode($wishlist), time() + (86400 * 30), '/');
+
+	wp_send_json_success([
+		'message' => 'Wishlist updated successfully',
+		'wishlist' => $wishlist
+	]);
 }
 
 
@@ -1730,9 +1725,42 @@ function woocommerce_product_search()
 								<img src="/wp-content/uploads/2024/07/heart-svgrepo-com.svg" alt="Wishlist" />
 							</a>
 
-							<?php if (has_term('novo', 'product_cat', $product->get_id())) {
+							<?php
+							if (has_term('novo', 'product_cat', $product->get_id())) {
 								echo '<span class="new-label w-700 color-is-white">Novo</span>';
-							} ?>
+							}
+
+							if ($product->is_type('variable')) {
+								// Get the variations of the current color
+								$variations_for_color = $filtered_variations[$color_slug] ?? [];
+								$displayed_discount = false; // Track if the sale label is displayed for this specific color
+
+								foreach ($variations_for_color as $variation_product) {
+									$regular_price = $variation_product->get_regular_price();
+									$sale_price = $variation_product->get_sale_price();
+
+									// Only calculate discount for variations that are on sale
+									if ($sale_price && $regular_price && $regular_price > $sale_price) {
+										$discount_percentage = round((($regular_price - $sale_price) / $regular_price) * 100);
+
+										// Display the sale badge only once per color group
+										if (!$displayed_discount) {
+											echo '<span class="new-label w-700 color-is-white black">-' . $discount_percentage . '%</span>';
+											$displayed_discount = true;
+										}
+									}
+								}
+							} else {
+								// For simple products
+								$regular_price = $product->get_regular_price();
+								$sale_price = $product->get_sale_price();
+
+								if ($regular_price && $sale_price) {
+									$discount_percentage = round((($regular_price - $sale_price) / $regular_price) * 100);
+									echo '<span class="new-label w-700 color-is-white black">-' . $discount_percentage . '%</span>';
+								}
+							}
+							?>
 						</div>
 					</div>
 					<div class="image-and-sizes">
@@ -2030,87 +2058,153 @@ add_action('woocommerce_calculated_total', 'round_discounted_price', 10, 2);
 
 function round_discounted_price($total)
 {
-    $rounded = round($total * 20) / 20;
-    return number_format($rounded, 2, '.', '');
+	$rounded = round($total * 20) / 20;
+	return number_format($rounded, 2, '.', '');
 }
 
 add_filter('woocommerce_order_amount_total', 'round_order_total', 10, 2);
 
 function round_order_total($total, $order)
 {
-    $rounded = round($total * 20) / 20;
-    return number_format($rounded, 2, '.', '');
+	$rounded = round($total * 20) / 20;
+	return number_format($rounded, 2, '.', '');
 }
 
 add_action('woocommerce_order_status_cancelled', 'send_cancelled_order_email_to_customer', 10, 1);
 
-function send_cancelled_order_email_to_customer($order_id) {
-    $order = wc_get_order($order_id);
-    
-    if (!$order) {
-        return;
-    }
+function send_cancelled_order_email_to_customer($order_id)
+{
+	$order = wc_get_order($order_id);
 
-    $customer_email = $order->get_billing_email();
+	if (!$order) {
+		return;
+	}
 
-    $subject = 'Vaša narudžba je otkazana';
-    $message = 'Poštovani ' . $order->get_billing_first_name() . ',<br><br>';
-    $message .= 'Informišemo Vas da je narudžba #' . $order->get_order_number() . ' otkazana.<br>';
-    $message .= 'Ukoliko imate bilo kakvih pitanja kontaktirajte nas.<br><br>';
-    $message .= 'Hvala na razumijevanju.<br><br>';
-    $message .= 'S poštovanjem,<br>';
-    $message .= 'Lumierefit';
+	$customer_email = $order->get_billing_email();
 
-    $headers = array('Content-Type: text/html; charset=UTF-8');
+	$subject = 'Vaša narudžba je otkazana';
+	$message = 'Poštovani ' . $order->get_billing_first_name() . ',<br><br>';
+	$message .= 'Informišemo Vas da je narudžba #' . $order->get_order_number() . ' otkazana.<br>';
+	$message .= 'Ukoliko imate bilo kakvih pitanja kontaktirajte nas.<br><br>';
+	$message .= 'Hvala na razumijevanju.<br><br>';
+	$message .= 'S poštovanjem,<br>';
+	$message .= 'Lumierefit';
+
+	$headers = array('Content-Type: text/html; charset=UTF-8');
 	$headers[] = 'From: Lumiere shop <info@lumierefit.ba>';
 
-    wp_mail($customer_email, $subject, $message, $headers);
+	wp_mail($customer_email, $subject, $message, $headers);
 }
 
 add_filter('woocommerce_registration_redirect', function ($redirect_to) {
-    $user = wp_get_current_user();
-    if (in_array('customer', (array) $user->roles)) {
-        $user->set_role('newcustomers');
-    }
-    return $redirect_to;
+	$user = wp_get_current_user();
+	if (in_array('customer', (array) $user->roles)) {
+		$user->set_role('newcustomers');
+	}
+	return $redirect_to;
 });
 
 add_action('woocommerce_thankyou', 'change_user_role_after_first_order', 10, 1);
 
-function change_user_role_after_first_order($order_id) {
-    $order = wc_get_order($order_id);
+function change_user_role_after_first_order($order_id)
+{
+	$order = wc_get_order($order_id);
 
-    $user_id = $order->get_user_id();
+	$user_id = $order->get_user_id();
 
-    if ($user_id) {
-        $user = new WP_User($user_id);
+	if ($user_id) {
+		$user = new WP_User($user_id);
 
-        if (in_array('newcustomers', (array) $user->roles)) {
-            $user->set_role('customer');
-        }
-    }
+		if (in_array('newcustomers', (array) $user->roles)) {
+			$user->set_role('customer');
+		}
+	}
 }
 
 add_action('user_register', 'schedule_role_change_after_registration', 10, 1);
 
-function schedule_role_change_after_registration($user_id) {
-    $time = time() + (30 * DAY_IN_SECONDS);
-    wp_schedule_single_event($time, 'change_role_after_registration', array($user_id));
+function schedule_role_change_after_registration($user_id)
+{
+	$time = time() + (30 * DAY_IN_SECONDS);
+	wp_schedule_single_event($time, 'change_role_after_registration', array($user_id));
 }
 
 add_action('change_role_after_registration', 'change_role_after_registration', 10, 1);
 
-function change_role_after_registration($user_id) {
-    $user = new WP_User($user_id);
+function change_role_after_registration($user_id)
+{
+	$user = new WP_User($user_id);
 
-    if (in_array('newcustomers', (array) $user->roles)) {
-        $user->set_role('customer');
-    }
+	if (in_array('newcustomers', (array) $user->roles)) {
+		$user->set_role('customer');
+	}
 }
 
 add_filter('woocommerce_product_single_add_to_cart_text', 'custom_add_to_cart_text_single');
 
-function custom_add_to_cart_text_single($text) {
-    return __('Dodaj u korpu', 'abacusplus');
+function custom_add_to_cart_text_single($text)
+{
+	return __('Dodaj u korpu', 'abacusplus');
 }
 
+function custom_shop_pagination($query)
+{
+	// Get total number of products
+	$total_products = $query->found_posts;
+	// Get products per page
+	$posts_per_page = $query->query_vars['posts_per_page'];
+
+	// Calculate total pages more precisely
+	$total_pages = ceil($total_products / $posts_per_page);
+
+	// Check if the last page would have enough products
+	$products_on_last_page = $total_products % $posts_per_page;
+	if ($products_on_last_page === 0 || $products_on_last_page >= ($posts_per_page * 0.5)) {
+		// Keep the current total pages if the last page is full or has at least half the products
+	} else {
+		// Reduce total pages by 1 if the last page would have too few products
+		$total_pages--;
+	}
+
+	// If there are no pages or only one page, don't show pagination
+	if ($total_pages <= 1) return;
+
+	$current_page = max(1, get_query_var('paged'));
+
+	echo '<div class="shop-pagination">';
+
+	// Previous page
+	if ($current_page > 1) {
+		$prev_url = add_query_arg('paged', $current_page - 1);
+		echo '<a href="' . esc_url($prev_url) . '" class="page-btn prev" data-page="' . ($current_page - 1) . '">&laquo;</a>';
+	}
+
+	// Page numbers
+	for ($i = 1; $i <= $total_pages; $i++) {
+		if ($i == $current_page) {
+			echo '<span class="page-btn current">' . $i . '</span>';
+		} else {
+			$page_url = add_query_arg('paged', $i);
+			echo '<a href="' . esc_url($page_url) . '" class="page-btn" data-page="' . $i . '">' . $i . '</a>';
+		}
+	}
+
+	// Next page
+	if ($current_page < $total_pages) {
+		$next_url = add_query_arg('paged', $current_page + 1);
+		echo '<a href="' . esc_url($next_url) . '" class="page-btn next" data-page="' . ($current_page + 1) . '">&raquo;</a>';
+	}
+
+	echo '</div>';
+}
+
+// Add this temporarily to debug
+add_action('init', 'debug_wishlist');
+function debug_wishlist()
+{
+	if (is_user_logged_in()) {
+		$user_id = get_current_user_id();
+		$wishlist = get_user_meta($user_id, 'wishlist', true);
+		error_log('Debug Wishlist for User ' . $user_id . ': ' . print_r($wishlist, true));
+	}
+}

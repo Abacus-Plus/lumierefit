@@ -18,29 +18,40 @@ $hotspot_content = get_field('tisch_konfigurator', 'option');
 get_header();
 ?>
 <section class="hero-section">
-    <div class="overlay"></div>
-    <?php if ($hero['background_type'] === false) { ?>
-        <img class="hero-section__image" src="<?php echo $hero['image']; ?>" loading="eager" alt="Background Image" />
-    <?php } elseif ($hero['background_type'] === true) { ?>
-        <video style="width:100%; height: 100%; object-fit:cover;" autoplay playsinline loop muted preload="auto">
-            <source src="<?php echo $hero['video']; ?>" type="video/mp4" />
-        </video>
-    <?php } ?>
-    <div class="container">
-        <div class="hero-section__main-wrapper">
-            <div class="content">
-                <h1 class="w-400 color-is-white hm-1">
-                    <?php echo $hero['hero_title']; ?>
-                </h1>
-                <p class="p-big w-400 color-is-white">
-                    <?php echo $hero['hero_paragraph']; ?>
-                </p>
-                <a class="primary-button small icon-right" href="<?php echo $hero['button']['url']; ?>">
-                    <?php echo $hero['button']['title']; ?>
-                </a>
-            </div>
+    <?php if (!empty($hero['slides'])) : ?>
+        <div class="hero-slider">
+            <?php foreach ($hero['slides'] as $slide) : ?>
+                <div class="slide">
+                    <div class="overlay"></div>
+
+                    <?php if ($slide['background_type'] === false) { ?>
+                        <img class="hero-section__image" src="<?php echo $slide['image']; ?>" loading="eager" alt="Background Image" />
+                    <?php } elseif ($slide['background_type'] === true) { ?>
+                        <video style="width:100%; height: 100%; object-fit:cover;" autoplay playsinline loop muted preload="auto">
+                            <source src="<?php echo $slide['video']['url']; ?>" type="video/mp4" />
+                        </video>
+                    <?php } ?>
+                    <div class="container">
+                        <div class="hero-section__main-wrapper text-<?php echo $slide['poravnanje']; ?>">
+                            <div class="content">
+                                <h1 class="w-400 color-is-white hm-1">
+                                    <?php echo $slide['hero_title']; ?>
+                                </h1>
+                                <p class="p-big w-400 color-is-white">
+                                    <?php echo $slide['hero_paragraph']; ?>
+                                </p>
+                                <?php if (!empty($slide['button'])) : ?>
+                                    <a class="primary-button small icon-right" href="<?php echo $slide['button']['url']; ?>">
+                                        <?php echo $slide['button']['title']; ?>
+                                    </a>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <?php endforeach; ?>
         </div>
-    </div>
+    <?php endif; ?>
 </section>
 <section class="new-products">
     <div class="container">
@@ -124,9 +135,42 @@ get_header();
                                 </a>
 
 
-                                <?php if (has_term('novo', 'product_cat', $product->get_id())) : ?>
-                                    <span class="new-label w-700 color-is-white">Novo</span>
-                                <?php endif; ?>
+                                <?php
+                                if (has_term('novo', 'product_cat', $product->get_id())) {
+                                    echo '<span class="new-label w-700 color-is-white">Novo</span>';
+                                }
+
+                                if ($product->is_type('variable')) {
+                                    // Get the variations of the current color
+                                    $variations_for_color = $filtered_variations[$color_slug] ?? [];
+                                    $displayed_discount = false; // Track if the sale label is displayed for this specific color
+
+                                    foreach ($variations_for_color as $variation_product) {
+                                        $regular_price = $variation_product->get_regular_price();
+                                        $sale_price = $variation_product->get_sale_price();
+
+                                        // Only calculate discount for variations that are on sale
+                                        if ($sale_price && $regular_price && $regular_price > $sale_price) {
+                                            $discount_percentage = round((($regular_price - $sale_price) / $regular_price) * 100);
+
+                                            // Display the sale badge only once per color group
+                                            if (!$displayed_discount) {
+                                                echo '<span class="new-label w-700 color-is-white black">-' . $discount_percentage . '%</span>';
+                                                $displayed_discount = true;
+                                            }
+                                        }
+                                    }
+                                } else {
+                                    // For simple products
+                                    $regular_price = $product->get_regular_price();
+                                    $sale_price = $product->get_sale_price();
+
+                                    if ($regular_price && $sale_price) {
+                                        $discount_percentage = round((($regular_price - $sale_price) / $regular_price) * 100);
+                                        echo '<span class="new-label w-700 color-is-white black">-' . $discount_percentage . '%</span>';
+                                    }
+                                }
+                                ?>
                             </div>
                         </div>
                         <div class="image-and-sizes">
@@ -355,9 +399,42 @@ get_header();
                                 </a>
 
 
-                                <?php if (has_term('novo', 'product_cat', $product->get_id())) : ?>
-                                    <span class="new-label w-700 color-is-white">Novo</span>
-                                <?php endif; ?>
+                                <?php
+                                if (has_term('novo', 'product_cat', $product->get_id())) {
+                                    echo '<span class="new-label w-700 color-is-white">Novo</span>';
+                                }
+
+                                if ($product->is_type('variable')) {
+                                    // Get the variations of the current color
+                                    $variations_for_color = $filtered_variations[$color_slug] ?? [];
+                                    $displayed_discount = false; // Track if the sale label is displayed for this specific color
+
+                                    foreach ($variations_for_color as $variation_product) {
+                                        $regular_price = $variation_product->get_regular_price();
+                                        $sale_price = $variation_product->get_sale_price();
+
+                                        // Only calculate discount for variations that are on sale
+                                        if ($sale_price && $regular_price && $regular_price > $sale_price) {
+                                            $discount_percentage = round((($regular_price - $sale_price) / $regular_price) * 100);
+
+                                            // Display the sale badge only once per color group
+                                            if (!$displayed_discount) {
+                                                echo '<span class="new-label w-700 color-is-white black">-' . $discount_percentage . '%</span>';
+                                                $displayed_discount = true;
+                                            }
+                                        }
+                                    }
+                                } else {
+                                    // For simple products
+                                    $regular_price = $product->get_regular_price();
+                                    $sale_price = $product->get_sale_price();
+
+                                    if ($regular_price && $sale_price) {
+                                        $discount_percentage = round((($regular_price - $sale_price) / $regular_price) * 100);
+                                        echo '<span class="new-label w-700 color-is-white black">-' . $discount_percentage . '%</span>';
+                                    }
+                                }
+                                ?>
                             </div>
                         </div>
                         <div class="image-and-sizes">
