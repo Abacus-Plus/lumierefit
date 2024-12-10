@@ -211,6 +211,8 @@ if (post_password_required()) {
                 </div>
             </div>
         </div>
+
+
         <section class="new-products">
             <div class="container">
                 <div class="new-products__heading-wrapper">

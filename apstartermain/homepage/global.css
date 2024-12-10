@@ -562,4 +562,51 @@ a.xoo-wsc-ft-btn.xoo-wsc-btn.xoo-wsc-ft-btn-checkout:before {
 	}
 }
 
+a.wc-block-components-checkout-return-to-cart-button {
+	display: none;
+}
+
+.wc-block-components-button:not(.is-link):hover {
+	background-color: #a58d4d !important;
+}
+
+.wc-block-components-button:not(.is-link) {
+	background-color: #b79c55 !important;
+	color: white;
+}
+
+.wc-block-checkout__payment-method .wc-block-components-radio-control.disable-radio-control .wc-block-components-radio-control__option {
+	padding-left: 3.5em !important;
+}
+
+.wc-block-checkout__payment-method .wc-block-components-radio-control.disable-radio-control .wc-block-components-radio-control__input {
+	display: block !important;
+}
+
+.wc-block-components-radio-control-accordion-content {
+	display: none;
+}
+
+article#post-113 .wc-block-components-title.wc-block-components-title {
+	font-size: 2rem;
+	text-transform: uppercase;
+	line-height: normal;
+}
+
+article#post-113 {
+	padding-top: 80px;
+}
+
+article#post-113 h1 {
+	line-height: normal;
+}
+
+.wc-block-components-checkbox label input[type="checkbox"]::before {
+	background-color: white;
+}
+
+.wc-block-components-totals-wrapper.slot-wrapper {
+	display: none;
+}
+
 /*# sourceMappingURL=global.css.map */

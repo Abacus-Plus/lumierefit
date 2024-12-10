@@ -603,7 +603,7 @@ function abacusplus_scripts()
 
 	if (is_page_template("contact.php") || is_page_template("shops.php")) {
 
-		wp_enqueue_script('googleMap', '//maps.googleapis.com/maps/api/js?key=AIzaSyCIxGrGOx0qwePbgKmGlX6hpD8msHyZMAE', NULL, mt_rand(), true);
+		wp_enqueue_script('googleMap', '//maps.googleapis.com/maps/api/js?key=AIzaSyC3llCQ2fqC6UAre1wJ7Hpcs45qxExUyaI', NULL, mt_rand(), true);
 	}
 
 
@@ -2048,7 +2048,7 @@ function display_variation_stock()
 				</div>
 			<?php endforeach; ?>
 		</div>
-<?php
+	<?php
 	}
 }
 
@@ -2208,3 +2208,53 @@ function debug_wishlist()
 		error_log('Debug Wishlist for User ' . $user_id . ': ' . print_r($wishlist, true));
 	}
 }
+
+// Add this after the existing code
+
+function modify_product_details_value()
+{
+	if (is_checkout()) {
+	?>
+		<style>
+			.wc-block-components-product-details__boja .wc-block-components-product-details__value {
+				font-size: 0;
+				/* Hide the original text */
+			}
+
+			.wc-block-components-product-details__boja .wc-block-components-product-details__value::after {
+				content: attr(data-after);
+				font-size: 14px;
+				/* Reset font size for the visible text */
+			}
+
+			/* Add this JavaScript to set the data-after attribute */
+		</style>
+		<script>
+			jQuery(document).ready(function($) {
+				function updateColorText() {
+					$('.wc-block-components-product-details__boja .wc-block-components-product-details__value').each(function() {
+						var text = $(this).text().trim();
+						var lastWord = text.split(' ').pop();
+						$(this).attr('data-after', lastWord);
+					});
+				}
+
+				// Initial update
+				updateColorText();
+
+				// Create observer for dynamic content
+				var observer = new MutationObserver(function(mutations) {
+					updateColorText();
+				});
+
+				// Start observing the document body for changes
+				observer.observe(document.body, {
+					childList: true,
+					subtree: true
+				});
+			});
+		</script>
+<?php
+	}
+}
+add_action('wp_footer', 'modify_product_details_value');

@@ -24,8 +24,19 @@ get_header();
                 <div class="slide">
                     <div class="overlay"></div>
 
+                    <?php
+                    // Detect if it's a mobile device (basic example, you can use more robust solutions if needed)
+                    $is_mobile = wp_is_mobile();
+
+                    // Extract the mobile image URL if available
+                    $mobile_image_url = !empty($slide['slika_za_mobitel']['url']) ? $slide['slika_za_mobitel']['url'] : null;
+
+                    // Determine the image to use
+                    $image_url = $is_mobile && $mobile_image_url ? $mobile_image_url : $slide['image'];
+                    ?>
+
                     <?php if ($slide['background_type'] === false) { ?>
-                        <img class="hero-section__image" src="<?php echo $slide['image']; ?>" loading="eager" alt="Background Image" />
+                        <img class="hero-section__image" src="<?php echo $image_url; ?>" loading="eager" alt="Background Image" />
                     <?php } elseif ($slide['background_type'] === true) { ?>
                         <video style="width:100%; height: 100%; object-fit:cover;" autoplay playsinline loop muted preload="auto">
                             <source src="<?php echo $slide['video']['url']; ?>" type="video/mp4" />
@@ -53,6 +64,8 @@ get_header();
         </div>
     <?php endif; ?>
 </section>
+
+
 <section class="new-products">
     <div class="container">
         <div class="new-products__heading-wrapper">
