@@ -285,6 +285,10 @@
                 transition: var(--transition);
                 height: auto;
 
+                @media only screen and (max-width: 599px) {
+                    padding: 10px;
+                }
+
                 .korpa {
                     font-size: 1rem;
                     font-family: var(--primary-font);
@@ -310,7 +314,7 @@
                         font-size: 0.875rem;
                         text-align: center;
                         background: white;
-                        width: 18%;
+                        width: 17%;
                         height: auto;
 
                         @media only screen and (max-width: 599px) {
@@ -322,6 +326,7 @@
                             background-color: var(--primary-color-500);
                         }
                     }
+
 
                     .disabled {
                         background-color: #e1e1e1;
@@ -343,6 +348,7 @@
                         }
 
                     }
+
                 }
             }
 

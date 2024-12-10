@@ -380,6 +380,12 @@
 	height: auto;
 }
 
+@media only screen and (max-width: 599px) {
+	.new-products__product .image-and-sizes .sizes {
+		padding: 10px;
+	}
+}
+
 .new-products__product .image-and-sizes .sizes .korpa {
 	font-size: 1rem;
 	font-family: var(--primary-font);
@@ -406,7 +412,7 @@
 	font-size: 0.875rem;
 	text-align: center;
 	background: white;
-	width: 18%;
+	width: 17%;
 	height: auto;
 }
 
