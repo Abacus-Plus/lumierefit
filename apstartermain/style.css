@@ -4396,10 +4396,6 @@ a.xoo-wsc-ft-btn {
 	height: auto;
 }
 
-.page-template-wishlist .new-products__wrapper {
-	padding-top: 100px;
-}
-
 div#sort-options {
 	gap: 14px;
 }
@@ -4945,6 +4941,15 @@ button.accordion-button::after {
 		flex: 1;
 	}
 	.page-template-homepage .new-products__wrapper {
+		grid-template-columns: repeat(12, 1fr);
+		column-gap: 16px;
+	}
+	.page-template-wishlist .new-products__product {
+		margin-right: auto;
+		min-width: 490px;
+		max-width: 490px;
+	}
+	.page-template-wishlist .new-products__wrapper {
 		grid-template-columns: repeat(12, 1fr);
 		column-gap: 16px;
 	}

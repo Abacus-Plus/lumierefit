@@ -499,6 +499,20 @@ button.accordion-button {
         }
     }
 
+    .page-template-wishlist {
+        .new-products__product {
+            margin-right: auto;
+            min-width: 490px;
+            max-width: 490px;
+        }
+
+        .new-products__wrapper {
+            grid-template-columns: repeat(12, 1fr);
+            column-gap: 16px;
+        }
+
+    }
+
     .page-template-homepage .new-products__product {
         margin-right: auto;
         min-width: 490px;
