@@ -46,7 +46,7 @@ get_header();
                                 <h4 class="w-400 color-is-black hm-1">
                                     <?php echo $card['title']; ?>
                                 </h4>
-                                <p class="p-small w-400 color-is-black">
+                                <p class="p-big w-400 color-is-black">
                                     <?php echo $card['paragraph']; ?>
                                 </p>
                             </div>

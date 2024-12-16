@@ -1,0 +1,115 @@
+.section-footer {
+	padding: 80px 0px 25px 0px;
+}
+
+.section-footer .row {
+	row-gap: 24px;
+}
+
+.section-footer__socials {
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+}
+
+@media only screen and (max-width: 599px) {
+	.section-footer__socials {
+		padding-bottom: 24px;
+	}
+}
+
+.section-footer__copyright {
+	display: flex;
+	justify-content: space-between;
+	padding-top: 60px;
+	align-items: center;
+}
+
+@media only screen and (max-width: 599px) {
+	.section-footer__copyright {
+		flex-direction: column-reverse;
+		padding: 0 12px;
+		gap: 16px;
+	}
+}
+
+.section-footer__title {
+	text-transform: uppercase;
+	font-family: var(--primary-font);
+	font-weight: 400;
+	font-size: 1.125rem;
+	color: var(--grey-color-900);
+	letter-spacing: 1px;
+}
+
+.section-footer__title2 {
+	text-transform: uppercase;
+	font-family: var(--primary-font);
+	font-weight: 400;
+	font-size: 1.125rem;
+	color: var(--grey-color-900);
+	letter-spacing: 1px;
+	padding-top: 32px;
+}
+
+.section-footer__list {
+	list-style: none;
+	padding: 16px 0px 23px 0px;
+	margin: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+}
+
+.section-footer__list li {
+	color: var(--grey-color-900);
+	font-weight: 400;
+	font-family: var(--secondary-font);
+	font-size: 1rem;
+	text-decoration: none;
+}
+
+.section-footer__list a {
+	color: var(--grey-color-900);
+	font-weight: 400;
+	font-family: var(--secondary-font);
+	font-size: 1rem;
+	text-decoration: none;
+}
+
+@media only screen and (max-width: 599px) {
+	.section-footer__contact .section-footer__list {
+		padding: 16px 0 32px 0;
+	}
+}
+
+.section-footer__logo p {
+	padding: 24px 0;
+	line-height: 17.6px;
+	width: 96%;
+	font-size: 1rem;
+}
+
+@media only screen and (max-width: 599px) {
+	.section-footer__logo p {
+		width: 100%;
+	}
+}
+
+.payment-wrapper {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	display: none;
+}
+
+.payment-wrapper img {
+	height: 24px;
+}
+
+.section-footer .container {
+	max-width: 100%;
+	width: 98%;
+}
+
+/*# sourceMappingURL=footer.css.map */

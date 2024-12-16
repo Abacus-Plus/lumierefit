@@ -1,0 +1,371 @@
+.konfigurator-section {
+	height: 90vh;
+}
+
+.konfigurator-section__wrapper {
+	position: relative;
+}
+
+@media (max-width: 768px) {
+	.konfigurator-section__wrapper {
+		display: none;
+	}
+}
+
+.konfigurator-section__wrapper img {
+	position: relative;
+	z-index: 1;
+	border-radius: 4px;
+	width: 100%;
+	height: 90vh;
+	object-fit: cover;
+}
+
+.konfigurator-section__wrapper .content-wrapper {
+	position: absolute;
+	top: 64px;
+	z-index: 2;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.konfigurator-section__wrapper .content-wrapper span {
+	color: #E1872D;
+	font-size: 1.25rem;
+	font-family: 'Staatliches', sans-serif;
+	font-weight: 400;
+	letter-spacing: 6px;
+}
+
+.konfigurator-section__wrapper .content-wrapper h2 {
+	color: white;
+	font-family: 'Staatliches', sans-serif;
+	font-weight: 400;
+	font-size: 3rem;
+	margin: 0;
+}
+
+.konfigurator-section__wrapper .content-wrapper h2 span {
+	color: #E1872D;
+	text-decoration: underline;
+	font-size: 3rem;
+	letter-spacing: 0;
+}
+
+.konfigurator-section__wrapper .hotspot-content-custom {
+	position: absolute;
+	z-index: 2;
+	top: 0;
+	width: 100%;
+	height: 100%;
+}
+
+.konfigurator-section__wrapper .hotspot-content-custom .single-hotspot {
+	display: flex;
+	align-items: center;
+	gap: 16px;
+	width: fit-content;
+	position: absolute;
+	flex-direction: column;
+}
+
+.konfigurator-section__wrapper .hotspot-content-custom .single-hotspot .number {
+	background: transparent;
+	padding: 10px;
+	line-height: 0;
+	height: 30px;
+	width: 30px;
+	border-radius: 50%;
+	border: 1px solid white;
+	color: white;
+	font-family: var(--secondary-font);
+	font-weight: 300;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	position: relative;
+	z-index: 2;
+	font-size: 25px;
+	transition: all .3s ease-in-out;
+}
+
+.konfigurator-section__wrapper .hotspot-content-custom .single-hotspot .number:hover {
+	background-color: white;
+	color: black;
+	border: 1px solid black;
+}
+
+.konfigurator-section__wrapper .hotspot-content-custom .single-hotspot .content {
+	background: rgba(255, 255, 255, 0.5);
+	backdrop-filter: blur(15px);
+	-webkit-backdrop-filter: blur(15px);
+	border-radius: 4px;
+	min-width: 300px;
+	padding: 16px;
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	position: relative;
+	z-index: 3;
+	opacity: 0;
+	visibility: hidden;
+	transition: opacity .3s ease-in-out;
+}
+
+.konfigurator-section__wrapper .hotspot-content-custom .single-hotspot .content .title-and-close {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.konfigurator-section__wrapper .hotspot-content-custom .single-hotspot .content .title-and-close .hotspot-title {
+	font-family: var(--secondary-font);
+	font-size: 1rem;
+	font-weight: 700;
+	color: var(--grey-color-900);
+}
+
+.konfigurator-section__wrapper .hotspot-content-custom .single-hotspot .content .title-and-close .close-icon {
+	line-height: 0;
+}
+
+.konfigurator-section__wrapper .hotspot-content-custom .single-hotspot .content .title-and-close .close-icon .x-icon {
+	all: unset;
+	width: 14px;
+	height: auto;
+	cursor: pointer;
+	/*&:hover {
+                                    filter: invert(68%) sepia(55%) saturate(2038%) hue-rotate(339deg) brightness(92%) contrast(92%);
+                                }*/
+}
+
+.konfigurator-section__wrapper .hotspot-content-custom .single-hotspot .content .hotspot-subtitle {
+	font-family: var(--secondary-font);
+	font-size: .875rem;
+	font-weight: 700;
+	margin: 0;
+	color: var(--grey-color-600);
+	margin-bottom: 8px;
+}
+
+.konfigurator-section__wrapper .hotspot-content-custom .single-hotspot .content .other-options-wrapper {
+	display: flex;
+	gap: 8px;
+}
+
+.konfigurator-section__wrapper .hotspot-content-custom .single-hotspot .content .other-options-wrapper a {
+	width: -webkit-fill-available;
+}
+
+.konfigurator-section__wrapper .hotspot-content-custom .single-hotspot .content .other-options-wrapper a .hotspot-other-options {
+	background-color: white;
+	color: var(--grey-color-900);
+	font-family: var(--primary-font);
+	font-weight: 400;
+	border-radius: 4px;
+	padding: 6px 12px;
+	font-size: 0.875rem;
+	min-width: 45px;
+	text-align: center;
+	display: block;
+	transition: var(--transition);
+}
+
+.konfigurator-section__wrapper .hotspot-content-custom .single-hotspot .content .other-options-wrapper a .hotspot-other-options:hover {
+	background-color: var(--primary-color-500);
+}
+
+.konfigurator-section__wrapper .hotspot-content-custom .single-hotspot.open .number {
+	background-color: white;
+	color: black;
+	border: 1px solid black;
+}
+
+.konfigurator-section__wrapper-mobile {
+	display: none;
+	position: relative;
+}
+
+@media (max-width: 768px) {
+	.konfigurator-section__wrapper-mobile {
+		display: block;
+	}
+}
+
+.konfigurator-section__wrapper-mobile img {
+	position: relative;
+	z-index: 1;
+	border-radius: 4px;
+	width: 100%;
+	height: 90vh;
+	object-fit: cover;
+}
+
+.konfigurator-section__wrapper-mobile .content-wrapper {
+	position: absolute;
+	top: 64px;
+	z-index: 2;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.konfigurator-section__wrapper-mobile .content-wrapper span {
+	color: #E1872D;
+	font-size: 1.25rem;
+	font-family: 'Staatliches', sans-serif;
+	font-weight: 400;
+	letter-spacing: 6px;
+}
+
+.konfigurator-section__wrapper-mobile .content-wrapper h2 {
+	color: white;
+	font-family: 'Staatliches', sans-serif;
+	font-weight: 400;
+	font-size: 3rem;
+	margin: 0;
+}
+
+.konfigurator-section__wrapper-mobile .content-wrapper h2 span {
+	color: #E1872D;
+	text-decoration: underline;
+	font-size: 3rem;
+	letter-spacing: 0;
+}
+
+.konfigurator-section__wrapper-mobile .hotspot-content-custom {
+	position: absolute;
+	z-index: 2;
+	top: 0;
+	width: 100%;
+	height: 100%;
+}
+
+.konfigurator-section__wrapper-mobile .hotspot-content-custom .single-hotspot {
+	display: flex;
+	align-items: center;
+	gap: 16px;
+	width: fit-content;
+	position: absolute;
+	flex-direction: column;
+}
+
+.konfigurator-section__wrapper-mobile .hotspot-content-custom .single-hotspot .number {
+	background: transparent;
+	padding: 10px;
+	line-height: 0;
+	height: 30px;
+	width: 30px;
+	border-radius: 50%;
+	border: 1px solid white;
+	color: white;
+	font-family: var(--secondary-font);
+	font-weight: 300;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	position: relative;
+	z-index: 2;
+	font-size: 25px;
+	transition: all .3s ease-in-out;
+}
+
+.konfigurator-section__wrapper-mobile .hotspot-content-custom .single-hotspot .number:hover {
+	background-color: white;
+	color: black;
+	border: 1px solid black;
+}
+
+.konfigurator-section__wrapper-mobile .hotspot-content-custom .single-hotspot .content {
+	background: rgba(255, 255, 255, 0.5);
+	backdrop-filter: blur(15px);
+	-webkit-backdrop-filter: blur(15px);
+	min-width: auto;
+	border-radius: 4px;
+	width: auto;
+	padding: 16px;
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	position: relative;
+	z-index: 3;
+	opacity: 0;
+	visibility: hidden;
+	transition: opacity .3s ease-in-out;
+}
+
+.konfigurator-section__wrapper-mobile .hotspot-content-custom .single-hotspot .content .title-and-close {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.konfigurator-section__wrapper-mobile .hotspot-content-custom .single-hotspot .content .title-and-close .hotspot-title {
+	font-family: var(--secondary-font);
+	font-size: .875rem;
+	font-weight: 700;
+	color: var(--grey-color-900);
+}
+
+.konfigurator-section__wrapper-mobile .hotspot-content-custom .single-hotspot .content .title-and-close .close-icon {
+	line-height: 0;
+}
+
+.konfigurator-section__wrapper-mobile .hotspot-content-custom .single-hotspot .content .title-and-close .close-icon .x-icon {
+	all: unset;
+	width: 14px;
+	height: auto;
+	cursor: pointer;
+	/*&:hover {
+                                    filter: invert(68%) sepia(55%) saturate(2038%) hue-rotate(339deg) brightness(92%) contrast(92%);
+                                }*/
+}
+
+.konfigurator-section__wrapper-mobile .hotspot-content-custom .single-hotspot .content .hotspot-subtitle {
+	font-family: var(--secondary-font);
+	font-size: 0.75rem;
+	font-weight: 700;
+	margin: 0;
+	color: var(--grey-color-600);
+	margin-bottom: 8px;
+}
+
+.konfigurator-section__wrapper-mobile .hotspot-content-custom .single-hotspot .content .other-options-wrapper {
+	display: flex;
+	gap: 8px;
+}
+
+.konfigurator-section__wrapper-mobile .hotspot-content-custom .single-hotspot .content .other-options-wrapper a {
+	width: -webkit-fill-available;
+}
+
+.konfigurator-section__wrapper-mobile .hotspot-content-custom .single-hotspot .content .other-options-wrapper a .hotspot-other-options {
+	background-color: white;
+	color: var(--grey-color-900);
+	font-family: var(--primary-font);
+	font-weight: 400;
+	border-radius: 4px;
+	padding: 6px 12px;
+	font-size: 0.875rem;
+	min-width: 45px;
+	text-align: center;
+	display: block;
+	transition: var(--transition);
+}
+
+.konfigurator-section__wrapper-mobile .hotspot-content-custom .single-hotspot .content .other-options-wrapper a .hotspot-other-options:hover {
+	background-color: var(--primary-color-500);
+}
+
+.konfigurator-section__wrapper-mobile .hotspot-content-custom .single-hotspot.open .number {
+	background-color: white;
+	color: black;
+	border: 1px solid black;
+}
+
+/*# sourceMappingURL=hotspot.css.map */

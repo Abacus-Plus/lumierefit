@@ -116,7 +116,7 @@
 
                         .hotspot-title {
                             font-family: var(--secondary-font);
-                            font-size: .875rem;
+                            font-size: 1rem;
                             font-weight: 700;
                             color: var(--grey-color-900);
                         }
@@ -138,8 +138,9 @@
                     }
 
                     .hotspot-subtitle {
-                        font-family: var(--secondary-font);;
-                        font-size: 0.75rem;
+                        font-family: var(--secondary-font);
+                        ;
+                        font-size: .875rem;
                         font-weight: 700;
                         margin: 0;
                         color: var(--grey-color-600);
@@ -165,7 +166,7 @@
                                 text-align: center;
                                 display: block;
                                 transition: var(--transition);
-    
+
                                 &:hover {
                                     background-color: var(--primary-color-500);
                                 }
@@ -354,7 +355,7 @@
                                 text-align: center;
                                 display: block;
                                 transition: var(--transition);
-    
+
                                 &:hover {
                                     background-color: var(--primary-color-500);
                                 }

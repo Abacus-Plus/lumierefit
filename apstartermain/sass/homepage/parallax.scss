@@ -22,7 +22,7 @@
     &__content {
         display: flex;
         flex-direction: column;
-        gap: 20px;
+        gap: 24px;
         align-items: center;
         position: absolute;
         z-index: 3;
@@ -39,6 +39,10 @@
             @media only screen and (min-width: 600px) and (max-width: 2080px) {
                 line-height: 1.1;
             }
+        }
+
+        .p-big {
+            font-size: 1.25rem;
         }
 
         @media only screen and (max-width: 599px) {
@@ -81,7 +85,7 @@
         justify-content: center;
         align-items: center;
         border-radius: 4px;
-        background-color: var(--grey-color-900);
+        background-color: #b79c55;
         text-decoration: none;
         line-height: normal;
         font-style: normal;
@@ -103,7 +107,7 @@
         justify-content: center;
         align-items: center;
         border-radius: 4px;
-        background-color: var(--grey-color-900);
+        background-color: #b79c55;
         text-decoration: none;
         line-height: normal;
         font-style: normal;

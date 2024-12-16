@@ -8,7 +8,7 @@ section.reviews {
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
 	text-transform: uppercase;
-	margin-bottom: -85px;
+	margin-bottom: -50px;
 	width: fit-content;
 }
 
@@ -230,6 +230,11 @@ section.reviews {
 	flex-direction: column;
 }
 
+.card-contact__content .p-big {
+	line-height: 16px;
+	font-size: 1rem;
+}
+
 .contact-form {
 	padding: 60px 0px;
 }
@@ -439,6 +444,19 @@ section.privacy-template {
 	padding-bottom: 56.25%;
 	height: 0;
 	overflow: hidden;
+}
+
+.page-template-homepage .ti-widget.ti-goog .ti-stars {
+	margin-bottom: 15px !important;
+}
+
+.ti-widget.ti-goog .ti-review-content {
+	font-size: .875rem !important;
+}
+
+.page-template-homepage .ti-widget.ti-goog .ti-review-header .ti-profile-details .ti-name {
+	font-size: 1rem !important;
+	line-height: 21px !important;
 }
 
 /*# sourceMappingURL=reviews.css.map */

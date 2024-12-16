@@ -566,7 +566,7 @@ get_header();
     <div class="container">
         <div class="newsletter__center">
             <h3 class="color-is-neutral-900 w-400 hm-3"><?php echo $newsletter['title'] ?></h3>
-            <p class="color-is-neutral-900 w-400 p-small"><?php echo $newsletter['paragraph'] ?></p>
+            <p class="color-is-neutral-900 w-400 p-big"><?php echo $newsletter['paragraph'] ?></p>
             <?php echo do_shortcode('[contact-form-7 id="6372b5e" title="Newsletter"]'); ?>
         </div>
     </div>
