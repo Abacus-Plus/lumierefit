@@ -85,13 +85,13 @@ $year = date('Y');
 				<span class="section-footer__title2">Radno vrijeme</span>
 				<ul class="section-footer__list">
 					<li>
-						Ponedeljak - Petak: 11 - 20 h
+						<b>Ponedeljak - Petak</b>: 11 - 20 h
 					</li>
 					<li>
-						Subota : 12-17 h
+						<b>Subota</b> : 12-17 h
 					</li>
 					<li>
-						Nedjelja : Zatvoreno
+						<b>Nedjelja</b> : Zatvoreno
 					</li>
 				</ul>
 			</div>
@@ -115,61 +115,58 @@ $year = date('Y');
 
 </body>
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Select all variation images with the 'variation-image' class
-    const variationImages = document.querySelectorAll('.variation-image');
+	document.addEventListener('DOMContentLoaded', function() {
+		// Select all variation images with the 'variation-image' class
+		const variationImages = document.querySelectorAll('.variation-image');
 
-    variationImages.forEach(function(image) {
-        image.addEventListener('click', function(e) {
-            e.preventDefault();
+		variationImages.forEach(function(image) {
+			image.addEventListener('click', function(e) {
+				e.preventDefault();
 
-            // Get the color slug from the clicked image
-            const colorSlug = this.getAttribute('data-color-slug');
+				// Get the color slug from the clicked image
+				const colorSlug = this.getAttribute('data-color-slug');
 
-            // Get the product URL
-            const productUrl = this.getAttribute('href');
+				// Get the product URL
+				const productUrl = this.getAttribute('href');
 
-            // Construct the URL to include the selected color in query parameters
-            const updatedUrl = new URL(productUrl);
-            updatedUrl.searchParams.set('selected_color', colorSlug);
+				// Construct the URL to include the selected color in query parameters
+				const updatedUrl = new URL(productUrl);
+				updatedUrl.searchParams.set('selected_color', colorSlug);
 
-            // Redirect to the updated URL
-            window.location.href = updatedUrl.href;
-        });
-    });
-});
-
-
+				// Redirect to the updated URL
+				window.location.href = updatedUrl.href;
+			});
+		});
+	});
 
 
 
-	
-jQuery(function($) {
-    function modifyAttributeText() {
-        const spanElement = $('.wc-block-components-product-details__boja .wc-block-components-product-details__value');
-        if (spanElement.length) {
-            const originalText = spanElement.text();
-            const modifiedText = originalText.replace(/^\S+\s/, ''); // Removes the first word
-            spanElement.text(modifiedText); // Update the span content
-        }
-    }
-
-    // Run on initial page load
-    modifyAttributeText();
-
-    // Listen for updates on the checkout page
-    $(document.body).on('updated_cart_totals updated_checkout wc_fragments_loaded', function() {
-        modifyAttributeText();
-    });
-
-    // Extra: Ensure it works when AJAX updates happen in other WooCommerce components
-    $(document.body).on('wc_cart_button_updated', function() {
-        modifyAttributeText();
-    });
-});
 
 
 
+	jQuery(function($) {
+		function modifyAttributeText() {
+			const spanElement = $('.wc-block-components-product-details__boja .wc-block-components-product-details__value');
+			if (spanElement.length) {
+				const originalText = spanElement.text();
+				const modifiedText = originalText.replace(/^\S+\s/, ''); // Removes the first word
+				spanElement.text(modifiedText); // Update the span content
+			}
+		}
+
+		// Run on initial page load
+		modifyAttributeText();
+
+		// Listen for updates on the checkout page
+		$(document.body).on('updated_cart_totals updated_checkout wc_fragments_loaded', function() {
+			modifyAttributeText();
+		});
+
+		// Extra: Ensure it works when AJAX updates happen in other WooCommerce components
+		$(document.body).on('wc_cart_button_updated', function() {
+			modifyAttributeText();
+		});
+	});
 </script>
 
 </html>

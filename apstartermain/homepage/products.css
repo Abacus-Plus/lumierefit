@@ -974,8 +974,13 @@
 
 .single-product .product-section .rtwpvg-product .product-single-wrapper .summary-product .cross-sell-products .cuw-column {
 	margin-bottom: 0 !important;
-	display: flex;
-	align-items: baseline;
+}
+
+@media only screen and (max-width: 599px) {
+	.single-product .product-section .rtwpvg-product .product-single-wrapper .summary-product .cross-sell-products .cuw-column {
+		display: flex;
+		align-items: baseline;
+	}
 }
 
 .single-product .product-section .rtwpvg-product .product-single-wrapper .summary-product .cross-sell-products .cuw-gird {
