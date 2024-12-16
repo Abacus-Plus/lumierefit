@@ -101,7 +101,7 @@
 
 jQuery(document).ready(function ($) {
 	$('.hero-slider').slick({
-		dots: true,
+		dots: $('.hero-slider .slide').length > 1, // Show dots only if there's more than one slide
 		arrows: false,
 		autoplay: true,
 		autoplaySpeed: 5000,
