@@ -938,12 +938,7 @@
 	transition: var(--transition);
 	color: var(--grey-color-900);
 	font-weight: 700;
-}
-
-@media only screen and (max-width: 599px) {
-	.single-product .product-section .rtwpvg-product .product-single-wrapper .summary-product .cross-sell-products .cuw-product-title {
-		text-align: left !important;
-	}
+	text-align: left !important;
 }
 
 .single-product .product-section .rtwpvg-product .product-single-wrapper .summary-product .cross-sell-products .cuw-product-separator {
