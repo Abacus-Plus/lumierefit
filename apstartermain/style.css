@@ -4207,7 +4207,7 @@ section.privacy-template {
 	background-color: var(--grey-color-900);
 	text-decoration: none;
 	border: 0;
-	line-height: 17.6px;
+	line-height: 11px;
 	font-style: normal;
 	font-weight: 700;
 	font-family: var(--secondary-font);
@@ -4225,7 +4225,6 @@ section.privacy-template {
 		width: fit-content !important;
 		position: absolute;
 		left: 147px;
-		margin-top: 27px;
 	}
 }
 
@@ -5150,6 +5149,12 @@ a.xoo-wsc-ft-btn.xoo-wsc-btn.xoo-wsc-ft-btn-checkout:before {
 	display: flex;
 	align-items: center;
 	gap: 24px;
+}
+
+@media only screen and (max-width: 599px) {
+	.cuw-main-wrapper {
+		align-items: normal;
+	}
 }
 
 .single-product .product-section .rtwpvg-product .product-single-wrapper .summary-product .cross-sell-products .cuw-product-title {

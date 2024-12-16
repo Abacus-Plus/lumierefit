@@ -678,6 +678,10 @@ a.xoo-wsc-ft-btn.xoo-wsc-btn.xoo-wsc-ft-btn-checkout {
     display: flex;
     align-items: center;
     gap: 24px;
+
+    @media only screen and (max-width: 599px) {
+        align-items: normal;
+    }
 }
 
 .single-product .product-section .rtwpvg-product .product-single-wrapper .summary-product .cross-sell-products .cuw-product-title {

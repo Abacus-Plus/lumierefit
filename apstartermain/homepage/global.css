@@ -497,6 +497,12 @@ a.xoo-wsc-ft-btn.xoo-wsc-btn.xoo-wsc-ft-btn-checkout:before {
 	gap: 24px;
 }
 
+@media only screen and (max-width: 599px) {
+	.cuw-main-wrapper {
+		align-items: normal;
+	}
+}
+
 .single-product .product-section .rtwpvg-product .product-single-wrapper .summary-product .cross-sell-products .cuw-product-title {
 	margin: 0 !important;
 	font-size: 1rem;
